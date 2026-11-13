@@ -444,3 +444,32 @@ body{font-family:'Archivo','Pretendard Variable',Pretendard,-apple-system,BlinkM
 @media (prefers-reduced-motion:reduce){
   .cv__h em{transition:none}
 }
+
+/* ===== 자간 완화 ===== */
+body{letter-spacing:.006em}
+.h1,.cv__h{letter-spacing:-.018em}
+.h2,.article__title{letter-spacing:-.014em}
+.h3,.card h3,.post__title,.steps h3,.contact__item strong,.hero__points strong,
+.list__row h3,.svc h2,.faq summary,.ba figcaption,.flow__steps li span{letter-spacing:-.008em}
+.statbar strong{letter-spacing:-.02em}
+.hd__logo,.ft__logo{letter-spacing:.01em}
+.label,.hero__kw,.post__cat,.ba__tag,.steps b,.flow__copy .label{letter-spacing:.17em}
+.lead,.prose,.card p,.post__desc,.compare,.cv__sub{letter-spacing:.004em}
+.btn,.td-more{letter-spacing:.002em}
+
+/* ===== 한글 제목 + 영문 부제 (루미네어·핀사이트 참고) ===== */
+.head__en{display:block;margin-top:14px;font-family:'Archivo',sans-serif;font-size:clamp(14px,1.2vw,17px);font-weight:500;font-style:italic;letter-spacing:.01em;color:#8A8A8A}
+.sec--dark .head__en,.flow .head__en{color:rgba(255,255,255,.45)}
+
+/* ===== 번호를 크게 (장식 요소로) ===== */
+.card__no{font-size:28px;font-weight:800;letter-spacing:-.02em;color:#D8D8D8;margin-bottom:28px}
+.sec--soft .card__no{color:#CFCFCF}
+.card:hover .card__no{color:var(--accent);transition:color .3s}
+.steps b{font-size:13px}
+.flowrow__no{font-size:56px}
+
+/* ===== 전환 띠 (풀블리드 한 줄 선언) ===== */
+.band{padding:clamp(72px,9vw,128px) 0;background:#111;color:#fff;text-align:center}
+.band p{font-size:clamp(22px,3vw,40px);font-weight:800;line-height:1.5;letter-spacing:-.014em;max-width:940px;margin:0 auto}
+.band em{font-style:normal;color:#7C93FF}
+.band span{display:block;margin-top:22px;font-family:'Archivo',sans-serif;font-size:14px;font-weight:500;font-style:italic;letter-spacing:.02em;color:rgba(255,255,255,.45)}
