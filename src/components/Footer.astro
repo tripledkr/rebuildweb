@@ -1,0 +1,14 @@
+---
+import site from '../site.config.mjs';
+const b = site.business;
+---
+<footer class="ft">
+  <div class="inner ft__in">
+    <p class="ft__logo">{site.name}</p>
+    <p class="ft__info">
+      상호 {b.company} · 대표 {b.ceo} · 사업자등록번호 {b.bizNo}<br>
+      주소 {b.address} · 전화 {site.contact.tel} · 이메일 {site.contact.email}
+    </p>
+    <p class="ft__copy">© {new Date().getFullYear()} {site.name}</p>
+  </div>
+</footer>

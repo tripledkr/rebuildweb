@@ -1,0 +1,71 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import site from '../../site.config.mjs';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('columns', ({ data }) => !data.draft || import.meta.env.SHOW_DRAFTS === 'true');
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post, posts } }));
+}
+const { post, posts } = Astro.props;
+const { Content } = await render(post);
+const d = post.data;
+const url = new URL(`/columns/${post.id}`, site.url).href;
+const fmt = (x: Date) => x.toISOString().slice(0, 10).replaceAll('-', '.');
+const others = posts.filter((p) => p.id !== post.id)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 3);
+---
+<Base
+  title={`${d.title} | ${site.name}`}
+  description={d.description}
+  type="article"
+  schema={[
+    {
+      '@context': 'https://schema.org', '@type': 'Article',
+      headline: d.title, description: d.description, keywords: d.keyword,
+      datePublished: d.date.toISOString(), dateModified: (d.updated ?? d.date).toISOString(),
+      mainEntityOfPage: url,
+      author: { '@type': 'Organization', name: site.name, url: site.url },
+      publisher: { '@type': 'Organization', name: site.name, url: site.url },
+    },
+    { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: '홈', item: site.url },
+      { '@type': 'ListItem', position: 2, name: '칼럼', item: new URL('/columns', site.url).href },
+      { '@type': 'ListItem', position: 3, name: d.title, item: url },
+    ]},
+  ]}
+>
+  <article class="article">
+    <header class="article__head">
+      <div class="inner inner--narrow">
+        <nav class="crumb" aria-label="현재 위치"><a href="/">홈</a><span aria-hidden="true">/</span><a href="/columns">칼럼</a></nav>
+        <p class="post__cat">{d.category}</p>
+        <h1 class="article__title">{d.title}</h1>
+        <p class="article__meta">
+          <time datetime={d.date.toISOString()}>{fmt(d.date)}</time>
+          {d.updated && <> · 수정 <time datetime={d.updated.toISOString()}>{fmt(d.updated)}</time></>}
+        </p>
+      </div>
+    </header>
+    <div class="inner inner--narrow prose"><Content /></div>
+    <aside class="inner inner--narrow">
+      <div class="article__cta">
+        <p class="article__cta-t">{site.columns.ctaTitle}</p>
+        <p>{site.columns.ctaText}</p>
+        <a class="btn" href="/#contact">무료 상담 신청 →</a>
+      </div>
+    </aside>
+  </article>
+  {others.length > 0 && (
+    <section class="sec sec--soft" aria-labelledby="more-title">
+      <div class="inner">
+        <h2 id="more-title" class="h3">함께 읽으면 좋은 글</h2>
+        <ul class="posts">
+          {others.map((p) => (
+            <li><a class="post" href={`/columns/${p.id}`}><span class="post__cat">{p.data.category}</span><h3 class="post__title">{p.data.title}</h3><p class="post__desc">{p.data.description}</p></a></li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+</Base>

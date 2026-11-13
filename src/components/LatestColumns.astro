@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+const posts = (await getCollection('columns', ({ data }) => !data.draft || import.meta.env.SHOW_DRAFTS === 'true'))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 3);
+interface Props { title: string }
+const { title } = Astro.props;
+---
+{posts.length > 0 && (
+  <section class="sec" aria-labelledby="latest-title">
+    <div class="inner">
+      <div class="head">
+        <p class="label">COLUMN</p>
+        <h2 id="latest-title" class="h2">{title}</h2>
+      </div>
+      <ul class="posts">
+        {posts.map((p) => (
+          <li><a class="post" href={`/columns/${p.id}`}><span class="post__cat">{p.data.category}</span><h3 class="post__title">{p.data.title}</h3><p class="post__desc">{p.data.description}</p></a></li>
+        ))}
+      </ul>
+      <p style="margin-top:32px"><a class="btn btn--line" href="/columns">칼럼 전체 보기 →</a></p>
+    </div>
+  </section>
+)}

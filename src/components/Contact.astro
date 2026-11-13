@@ -1,0 +1,17 @@
+---
+import site from '../site.config.mjs';
+interface Props { title: string; lead: string }
+const { title, lead } = Astro.props;
+---
+<section class="sec contact" id="contact" aria-labelledby="contact-title">
+  <div class="inner">
+    <p class="label">CONTACT</p>
+    <h2 id="contact-title" class="h2">{title}</h2>
+    <p class="lead">{lead}</p>
+    <div class="contact__grid">
+      <a class="contact__item" href={site.contact.formUrl}><span>문의서 작성</span><strong>상담 신청하기 →</strong></a>
+      <a class="contact__item" href={`tel:${site.contact.tel}`}><span>전화</span><strong>{site.contact.tel}</strong></a>
+      <a class="contact__item" href={`mailto:${site.contact.email}`}><span>이메일</span><strong>{site.contact.email}</strong></a>
+    </div>
+  </div>
+</section>
