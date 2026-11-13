@@ -1,64 +1,69 @@
 ---
 /* 문의 동선을 보여주는 UI 목업 : 스크롤 진입 시 3단계 재생 */
 ---
-<section class="sec flow" id="flow" aria-labelledby="flow-title">
+<section class="sec flow sec--lift" id="flow" aria-labelledby="flow-title">
   <div class="inner flow__grid">
     <div class="flow__copy" data-reveal>
       <p class="label">THE POINT</p>
       <h2 id="flow-title" class="h2">리뉴얼의 목적은<br>디자인이 아니라 문의입니다.</h2>
+      <span class="head__en">Designed to be contacted</span>
       <p class="lead">방문자가 회사를 보고, 서비스를 이해하고, 문의를 남기기까지. 그 세 단계가 끊기지 않도록 화면을 설계합니다.</p>
       <ol class="flow__steps">
-        <li data-step="0"><b>01</b><span>회사가 하는 일을 3초 안에</span></li>
-        <li data-step="1"><b>02</b><span>서비스를 읽은 자리에 바로 상담 버튼</span></li>
-        <li data-step="2"><b>03</b><span>문의가 담당자에게 즉시 전달</span></li>
+        <li><b>01</b><span>회사가 하는 일을 3초 안에</span></li>
+        <li><b>02</b><span>서비스를 읽은 자리에 바로 상담 버튼</span></li>
+        <li><b>03</b><span>문의가 담당자에게 즉시 전달</span></li>
       </ol>
     </div>
 
-    <div class="flow__stage" data-flow aria-hidden="true">
-      <div class="phone">
-        <div class="phone__notch"></div>
+    <div class="flow__stage" data-flow>
+      <div class="phone" aria-hidden="true">
         <div class="phone__screen">
-          <!-- 1단계 : 홈 화면 -->
+          <div class="phone__island"></div>
+
+          <!-- 1단계 : 회사 홈 -->
           <div class="scr scr--1 is-on">
-            <div class="scr__bar"><span class="scr__dot"></span><span class="scr__url"></span></div>
-            <div class="scr__pad">
-              <div class="sk sk--brand"></div>
-              <div class="sk sk--h1"></div>
-              <div class="sk sk--h1 sk--short"></div>
-              <div class="sk sk--p"></div>
-              <div class="sk sk--p sk--short"></div>
-              <div class="sk sk--btn"></div>
-              <div class="sk sk--img"></div>
+            <div class="ui-bar"><i></i><i></i><i></i><span>example.co.kr</span></div>
+            <div class="ui-nav"><b>○○건설</b><u></u><u></u><u></u></div>
+            <div class="ui-body">
+              <p class="ui-kicker">종합건설 · 1994</p>
+              <p class="ui-h">30년의 시공 경험으로<br>공간을 짓습니다</p>
+              <p class="ui-p">관공서, 상업시설, 주거까지<br>280건의 준공 실적</p>
+              <span class="ui-btn">시공 사례 보기</span>
+              <div class="ui-hero"></div>
+              <div class="ui-grid ui-grid--3"><u></u><u></u><u></u></div>
             </div>
           </div>
-          <!-- 2단계 : 상담 버튼 -->
+
+          <!-- 2단계 : 서비스 + 상담 버튼 -->
           <div class="scr scr--2">
-            <div class="scr__bar"><span class="scr__dot"></span><span class="scr__url"></span></div>
-            <div class="scr__pad">
-              <div class="sk sk--h2"></div>
-              <div class="sk sk--p"></div>
-              <div class="sk sk--p sk--short"></div>
-              <div class="sk sk--card"></div>
-              <div class="sk sk--card"></div>
-              <div class="cta-btn">무료 리뉴얼 상담 <i>→</i><span class="cta-ring"></span></div>
+            <div class="ui-bar"><i></i><i></i><i></i><span>example.co.kr/service</span></div>
+            <div class="ui-nav"><b>○○건설</b><u></u><u></u><u></u></div>
+            <div class="ui-body">
+              <p class="ui-kicker">SERVICE</p>
+              <p class="ui-h2">건축 시공</p>
+              <p class="ui-p">설계 검토부터 준공까지 한 팀이<br>진행합니다.</p>
+              <div class="ui-row"><span>공사 기간</span><em>협의</em></div>
+              <div class="ui-row"><span>시공 범위</span><em>전 과정</em></div>
+              <span class="ui-btn ui-btn--pulse">무료 상담 신청<i class="ui-ring"></i></span>
+              <div class="ui-grid"><u></u><u></u><u></u><u></u></div>
             </div>
           </div>
-          <!-- 3단계 : 문의 접수 알림 -->
+
+          <!-- 3단계 : 접수 완료 -->
           <div class="scr scr--3">
-            <div class="scr__bar"><span class="scr__dot"></span><span class="scr__url"></span></div>
-            <div class="scr__pad scr__pad--center">
-              <div class="done"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5.2 5.2L20 7"/></svg></div>
-              <p class="done__t">상담 신청이 접수되었습니다</p>
-              <p class="done__s">확인 후 연락드리겠습니다</p>
+            <div class="ui-bar"><i></i><i></i><i></i><span>example.co.kr/contact</span></div>
+            <div class="ui-done">
+              <span class="ui-check"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5.2 5.2L20 7"/></svg></span>
+              <p class="ui-done__t">상담 신청이 접수되었습니다</p>
+              <p class="ui-done__s">확인 후 연락드리겠습니다</p>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 담당자에게 도착하는 알림 -->
-      <div class="alert">
+      <div class="alert" aria-hidden="true">
         <span class="alert__ico"></span>
-        <span class="alert__txt"><b>새 상담 신청</b>방금 전 · 홈페이지 리뉴얼 문의</span>
+        <span class="alert__txt"><b>새 상담 신청</b>방금 전 · 건축 시공 문의</span>
       </div>
       <p class="flow__note">화면은 설계 방식을 보여주는 예시입니다.</p>
     </div>
