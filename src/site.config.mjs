@@ -15,7 +15,7 @@ export default {
     { label: '칼럼', href: '/columns' },
   ],
   contact: {
-    formEndpoint: '', // 구글 Apps Script 웹 앱 주소 (입력하면 사이트 안 문의 폼이 표시됨)
+    formEndpoint: 'https://script.google.com/macros/s/AKfycbxTRQZs3f7eKw4wxUQHzqn-rumZPDHZAGW7ZF57vc0VfHegwwL8JmqudEse45xOVhwy/exec', // 구글 Apps Script 웹 앱 주소 (입력하면 사이트 안 문의 폼이 표시됨)
     privacyPeriod: '상담 종료 후 1년', // 개인정보 보유 기간
     tel: '010-3080-9136',
     email: 'tripled_kr@naver.com',
