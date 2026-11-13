@@ -9,9 +9,9 @@ export default {
     bg: '#FFFFFF',
   },
   nav: [
-    { label: '리뉴얼 신호', href: '/#signs' },
+    { label: '리뉴얼 체크', href: '/#signs' },
+    { label: '바뀌는 점', href: '/#scope' },
     { label: '진행 과정', href: '/#process' },
-    { label: '자주 묻는 질문', href: '/#faq' },
     { label: '칼럼', href: '/columns' },
   ],
   contact: {

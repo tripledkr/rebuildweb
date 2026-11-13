@@ -1,0 +1,57 @@
+---
+interface Props { beforeLabel?: string; afterLabel?: string; beforeCaption: string; afterCaption: string }
+const { beforeLabel = 'BEFORE', afterLabel = 'AFTER', beforeCaption, afterCaption } = Astro.props;
+---
+<div class="ba" data-reveal>
+  <figure class="ba__item ba__item--before">
+    <div class="ba__tag">{beforeLabel}</div>
+    <svg class="ba__svg" viewBox="0 0 440 300" role="img" aria-label="리뉴얼 전 홈페이지 예시 화면: 메뉴가 많고 글이 빽빽하며 문의 버튼이 없는 상태">
+      <rect x="0" y="0" width="440" height="300" rx="10" fill="#fff" stroke="#e0e0e0"/>
+      <path d="M0 10a10 10 0 0 1 10-10h420a10 10 0 0 1 10 10v22H0z" fill="#f1f1f1"/>
+      <circle cx="18" cy="16" r="4" fill="#d6d6d6"/><circle cx="32" cy="16" r="4" fill="#d6d6d6"/><circle cx="46" cy="16" r="4" fill="#d6d6d6"/>
+      <rect x="62" y="10" width="200" height="12" rx="6" fill="#e4e4e4"/>
+      <rect x="16" y="44" width="54" height="10" rx="3" fill="#bdbdbd"/>
+      {[0,1,2,3,4,5,6].map((i) => <rect x={92 + i * 48} y={46} width={38} height={6} rx="3" fill="#dcdcdc"/>)}
+      <rect x="16" y="68" width="408" height="52" rx="4" fill="#ededed"/>
+      <rect x="28" y="84" width="150" height="8" rx="4" fill="#cfcfcf"/>
+      <rect x="28" y="100" width="96" height="6" rx="3" fill="#dcdcdc"/>
+      {[0,1,2,3,4,5,6,7,8].map((i) => <rect x="16" y={132 + i * 13} width={i % 3 === 0 ? 404 : i % 3 === 1 ? 392 : 360} height="6" rx="3" fill="#e2e2e2"/>)}
+      <rect x="16" y="258" width="408" height="1" fill="#e6e6e6"/>
+      <rect x="16" y="270" width="120" height="6" rx="3" fill="#e4e4e4"/>
+      <rect x="16" y="282" width="86" height="5" rx="2" fill="#ececec"/>
+    </svg>
+    <figcaption>{beforeCaption}</figcaption>
+  </figure>
+
+  <div class="ba__arrow" aria-hidden="true">
+    <svg viewBox="0 0 48 24" width="48" height="24"><path d="M2 12h40m0 0-9-8m9 8-9 8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+
+  <figure class="ba__item ba__item--after">
+    <div class="ba__tag ba__tag--on">{afterLabel}</div>
+    <svg class="ba__svg" viewBox="0 0 440 300" role="img" aria-label="리뉴얼 후 홈페이지 예시 화면: 메뉴가 정리되고 핵심 문구와 상담 버튼이 뚜렷한 상태">
+      <rect x="0" y="0" width="440" height="300" rx="10" fill="#fff" stroke="#dcdcdc"/>
+      <path d="M0 10a10 10 0 0 1 10-10h420a10 10 0 0 1 10 10v22H0z" fill="#f7f7f7"/>
+      <circle cx="18" cy="16" r="4" fill="#cfcfcf"/><circle cx="32" cy="16" r="4" fill="#cfcfcf"/><circle cx="46" cy="16" r="4" fill="#cfcfcf"/>
+      <rect x="62" y="10" width="200" height="12" rx="6" fill="#ededed"/>
+      <rect x="20" y="46" width="62" height="11" rx="3" fill="#1c1c1c"/>
+      {[0,1,2,3].map((i) => <rect x={190 + i * 46} y={48} width={34} height={7} rx="3" fill="#c8c8c8"/>)}
+      <rect x="378" y="43" width="44" height="17" rx="8.5" class="ba__accent"/>
+      <rect x="20" y="84" width="238" height="17" rx="4" fill="#1c1c1c"/>
+      <rect x="20" y="109" width="182" height="17" rx="4" fill="#1c1c1c"/>
+      <rect x="20" y="140" width="206" height="7" rx="3" fill="#c4c4c4"/>
+      <rect x="20" y="153" width="150" height="7" rx="3" fill="#d6d6d6"/>
+      <rect x="20" y="176" width="104" height="26" rx="13" class="ba__accent"/>
+      <rect x="296" y="84" width="124" height="118" rx="8" fill="#f2f2f2"/>
+      {[0,1,2].map((i) => (
+        <g>
+          <rect x={20 + i * 136} y="224" width="124" height="56" rx="8" fill="#fff" stroke="#e6e6e6"/>
+          <rect x={32 + i * 136} y="238" width="52" height="7" rx="3" class="ba__accent"/>
+          <rect x={32 + i * 136} y="254" width="96" height="6" rx="3" fill="#dedede"/>
+          <rect x={32 + i * 136} y="266" width="74" height="6" rx="3" fill="#e8e8e8"/>
+        </g>
+      ))}
+    </svg>
+    <figcaption>{afterCaption}</figcaption>
+  </figure>
+</div>
