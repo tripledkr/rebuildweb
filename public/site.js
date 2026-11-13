@@ -193,3 +193,54 @@
     });
   }
 })();
+
+/* ===== spine: 라인아트 드로잉 + 진행선 ===== */
+(function () {
+  var reduceM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var rows = [].slice.call(document.querySelectorAll('.srow'));
+  if (!rows.length) return;
+
+  // 각 path/rect/circle 의 실제 길이를 --len 으로
+  rows.forEach(function (row) {
+    [].slice.call(row.querySelectorAll('.srow__gfx svg > *')).forEach(function (el) {
+      if (el.classList.contains('s-dot')) return;
+      var len = 0;
+      try { len = el.getTotalLength ? el.getTotalLength() : 0; } catch (e) { len = 0; }
+      if (!len) {
+        var b = el.getBBox ? el.getBBox() : null;
+        len = b ? (b.width + b.height) * 2 : 300;
+      }
+      el.style.setProperty('--len', Math.ceil(len) + 'px');
+      var i = [].indexOf.call(el.parentNode.children, el);
+      el.style.transitionDelay = (0.08 * i) + 's';
+    });
+  });
+
+  if (reduceM) { rows.forEach(function (r) { r.classList.add('is-in'); }); }
+  else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.3, rootMargin: '0px 0px -8% 0px' });
+    rows.forEach(function (r) { io.observe(r); });
+  }
+
+  var spine = document.querySelector('[data-spine]');
+  var line = spine && spine.querySelector('.spine__line');
+  if (!spine || !line || reduceM) return;
+  var ticking = false;
+  function paint() {
+    ticking = false;
+    var r = spine.getBoundingClientRect();
+    var mid = window.innerHeight * 0.55;
+    var p = (mid - r.top) / r.height;
+    p = Math.max(0, Math.min(1, p));
+    line.style.setProperty('--spine', (p * 100).toFixed(2) + '%');
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(paint); }
+  }, { passive: true });
+  window.addEventListener('resize', paint);
+  paint();
+})();

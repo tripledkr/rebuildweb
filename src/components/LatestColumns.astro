@@ -8,16 +8,31 @@ const { title } = Astro.props;
 {posts.length > 0 && (
   <section class="sec" aria-labelledby="latest-title">
     <div class="inner">
-      <div class="head">
-        <p class="label">COLUMN</p>
-        <h2 id="latest-title" class="h2">{title}</h2>
+      <div class="head head--split">
+        <div>
+          <p class="label">COLUMN</p>
+          <h2 id="latest-title" class="h2">{title}</h2>
+        </div>
+        <p class="lead">리뉴얼을 결정하기 전에 알아두면 비용과 시간을 아낄 수 있는 내용을 정리해 두었습니다.</p>
       </div>
-      <ul class="posts">
-        {posts.map((p) => (
-          <li><a class="post" href={`/columns/${p.id}`}><span class="post__cat">{p.data.category}</span><h3 class="post__title">{p.data.title}</h3><p class="post__desc">{p.data.description}</p></a></li>
+      <ul class="plist">
+        {posts.map((p, i) => (
+          <li>
+            <a class="plist__a" href={`/columns/${p.id}`}>
+              <span class="plist__n">{String(i + 1).padStart(2, '0')}</span>
+              <span class="plist__body">
+                <span class="plist__cat">{p.data.category}</span>
+                <h3 class="plist__t">{p.data.title}</h3>
+                <span class="plist__d">{p.data.description}</span>
+              </span>
+              <span class="plist__arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </span>
+            </a>
+          </li>
         ))}
       </ul>
-      <p style="margin-top:32px"><a class="btn btn--line" href="/columns">칼럼 전체 보기 →</a></p>
+      <p class="plist__more"><a class="btn btn--line" href="/columns">칼럼 전체 보기 →</a></p>
     </div>
   </section>
 )}

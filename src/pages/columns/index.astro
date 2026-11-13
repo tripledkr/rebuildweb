@@ -29,14 +29,20 @@ const title = `${site.columns.title} | ${site.name}`;
   <section class="sec">
     <div class="inner">
       {posts.length === 0 && <p class="lead">첫 칼럼을 준비하고 있습니다.</p>}
-      <ul class="posts">
-        {posts.map((p) => (
+      <ul class="plist">
+        {posts.map((p, i) => (
           <li>
-            <a class="post" href={`/columns/${p.id}`}>
-              <span class="post__cat">{p.data.category}</span>
-              <h2 class="post__title">{p.data.title}</h2>
-              <p class="post__desc">{p.data.description}</p>
-              <time datetime={p.data.date.toISOString()}>{fmt(p.data.date)}</time>
+            <a class="plist__a" href={`/columns/${p.id}`}>
+              <span class="plist__n">{String(i + 1).padStart(2, '0')}</span>
+              <span class="plist__body">
+                <span class="plist__cat">{p.data.category}</span>
+                <h2 class="plist__t">{p.data.title}</h2>
+                <span class="plist__d">{p.data.description}</span>
+                <time class="plist__date" datetime={p.data.date.toISOString()}>{fmt(p.data.date)}</time>
+              </span>
+              <span class="plist__arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </span>
             </a>
           </li>
         ))}
