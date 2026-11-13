@@ -50,6 +50,42 @@
     onScroll();
   }
 
+
+  /* 문의 동선 목업 : 3단계 자동 재생 */
+  document.querySelectorAll('[data-flow]').forEach(function (stage) {
+    var section = stage.closest('section');
+    var screens = stage.querySelectorAll('.scr');
+    var alertEl = stage.querySelector('.alert');
+    var steps = section ? section.querySelectorAll('.flow__steps li') : [];
+    var i = 0, timer = null, playing = false;
+
+    function show(n) {
+      screens.forEach(function (s, k) { s.classList.toggle('is-on', k === n); });
+      steps.forEach(function (s, k) { s.classList.toggle('is-on', k === n); });
+      if (alertEl) alertEl.classList.toggle('is-on', n === 2);
+    }
+    function tick() {
+      i = (i + 1) % screens.length;
+      show(i);
+      timer = setTimeout(tick, i === 2 ? 2600 : 2200);
+    }
+    function start() {
+      if (playing) return;
+      playing = true;
+      i = 0; show(0);
+      if (reduce) { show(2); return; }
+      timer = setTimeout(tick, 2000);
+    }
+    function stop() { playing = false; clearTimeout(timer); }
+
+    if (!('IntersectionObserver' in window)) { start(); return; }
+    var io3 = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) start(); else stop(); });
+    }, { threshold: 0.3 });
+    io3.observe(stage);
+    document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); });
+  });
+
   /* 내부 앵커 부드러운 이동 */
   if (!reduce) {
     document.querySelectorAll('a[href^="/#"], a[href^="#"]').forEach(function (a) {

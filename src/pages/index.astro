@@ -4,6 +4,7 @@ import Faq from '../components/Faq.astro';
 import Contact from '../components/Contact.astro';
 import LatestColumns from '../components/LatestColumns.astro';
 import BeforeAfter from '../components/BeforeAfter.astro';
+import FlowStage from '../components/FlowStage.astro';
 import site from '../site.config.mjs';
 
 const faqs = [
@@ -107,6 +108,8 @@ const schema = [
       </ul>
     </div>
   </section>
+
+  <FlowStage />
 
   <!-- 전후 비교 -->
   <section class="sec sec--soft" aria-labelledby="compare-title">
