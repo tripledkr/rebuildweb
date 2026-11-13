@@ -3,7 +3,7 @@ import site from '../site.config.mjs';
 ---
 <header class="hd">
   <div class="inner hd__in">
-    <a class="hd__logo" href="/" aria-label={`${site.name} 홈`}>{site.name}</a>
+    <a class="hd__logo" href="/" aria-label={`${site.name} 홈`}>{site.logo ?? site.name}</a>
     <nav class="hd__nav" aria-label="주 메뉴">
       {site.nav.map((n) => <a href={n.href}>{n.label}</a>)}
       <a class="btn btn--sm" href="/#contact">무료 상담</a>

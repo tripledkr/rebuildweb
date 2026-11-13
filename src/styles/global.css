@@ -285,3 +285,7 @@ body{font-family:'Archivo','Pretendard Variable',Pretendard,-apple-system,BlinkM
 .label,.hero__kw,.hd__logo,.ba__tag,.steps b,.ft__logo,.post__cat{font-family:'Archivo','Pretendard Variable',Pretendard,sans-serif;font-weight:800}
 .h1,.h2,.article__title,.statbar strong,.hero__points strong{letter-spacing:-.04em}
 .statbar strong,.hero__kw{font-feature-settings:'tnum'}
+
+/* 영문 로고 */
+.hd__logo{font-size:20px;font-weight:800;letter-spacing:-.01em}
+.ft__logo{font-size:18px;font-weight:800;letter-spacing:-.01em}

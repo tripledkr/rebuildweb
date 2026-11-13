@@ -1,6 +1,7 @@
 /* 사이트 기본 정보 : 배포 전 [ ] 항목을 실제 값으로 교체 */
 export default {
   name: '리빌드웹',
+  logo: 'REBUILDWEB', // 헤더·푸터에 보이는 로고 표기
   url: 'https://rebuildweb.vercel.app', // 실제 도메인으로 교체
   keyword: '기업 홈페이지 리뉴얼',
   theme: {
