@@ -36,35 +36,43 @@ const schema = [
   description="회사는 성장했는데 홈페이지는 그대로인가요? 리빌드웹은 흩어진 자료 정리부터 구조 설계, 디자인, 모바일 반응형, 운영 교육까지 기업 홈페이지 리뉴얼을 6주 동안 진행합니다."
   schema={schema}
 >
-  <!-- 히어로 -->
-  <section class="hero hero--dark">
-    <div class="hero__bg" style="background-image:url('/hero.webp')" aria-hidden="true"></div>
-    <div class="hero__veil" aria-hidden="true"></div>
-    <div class="hero__orb" aria-hidden="true"></div>
-    <div class="inner">
-      <p class="hero__kw" data-reveal>기업 홈페이지 리뉴얼</p>
-      <h1 class="h1" data-reveal>오래된 회사 홈페이지,<br>6주 만에 다시 짓습니다.</h1>
-      <p class="lead" data-reveal>회사는 성장했는데 홈페이지는 몇 년 전 그대로인가요? 리빌드웹은 흩어진 자료 정리부터 디자인, 개발, 운영 교육까지 기업 홈페이지 리뉴얼을 한 번에 진행합니다.</p>
-      <div class="hero__btns" data-reveal>
-        <a class="btn" href="#contact">무료 리뉴얼 상담 →</a>
-        <a class="btn btn--line" href="#signs">리뉴얼이 필요한지 확인하기</a>
+  <!-- 히어로 → 전환 구간 (아래에서 위로 걷히는 덮기) -->
+  <div class="cv" data-curtain>
+    <div class="cv__a">
+      <div class="cv__a-stage">
+    <!-- 히어로 -->
+    <section class="hero hero--dark">
+      <div class="hero__bg" style="background-image:url('/hero.webp')" aria-hidden="true"></div>
+      <div class="hero__veil" aria-hidden="true"></div>
+      <div class="hero__orb" aria-hidden="true"></div>
+      <div class="inner">
+        <p class="hero__kw" data-reveal>기업 홈페이지 리뉴얼</p>
+        <h1 class="h1" data-reveal>오래된 회사 홈페이지,<br>6주 만에 다시 짓습니다.</h1>
+        <p class="lead" data-reveal>회사는 성장했는데 홈페이지는 몇 년 전 그대로인가요? 리빌드웹은 흩어진 자료 정리부터 디자인, 개발, 운영 교육까지 기업 홈페이지 리뉴얼을 한 번에 진행합니다.</p>
+        <div class="hero__btns" data-reveal>
+          <a class="btn" href="#contact">무료 리뉴얼 상담 →</a>
+          <a class="btn btn--line" href="#signs">리뉴얼이 필요한지 확인하기</a>
+        </div>
+        <ul class="hero__points" data-reveal-group>
+          <li><strong>6주 완성</strong><span>상담부터 오픈까지 정해진 일정</span></li>
+          <li><strong>자료 정리부터</strong><span>뒤섞인 자료도 구조로 정리</span></li>
+          <li><strong>직접 운영 교육</strong><span>오픈 후 회사에서 바로 수정</span></li>
+        </ul>
       </div>
-      <ul class="hero__points" data-reveal-group>
-        <li><strong>6주 완성</strong><span>상담부터 오픈까지 정해진 일정</span></li>
-        <li><strong>자료 정리부터</strong><span>뒤섞인 자료도 구조로 정리</span></li>
-        <li><strong>직접 운영 교육</strong><span>오픈 후 회사에서 바로 수정</span></li>
-      </ul>
+      <p class="hero__scroll" aria-hidden="true">SCROLL</p>
+    </section>
+      </div>
     </div>
-    <p class="hero__scroll" aria-hidden="true">SCROLL</p>
-  </section>
 
-
-
-  <!-- 흐르는 키워드 띠 -->
-  <div class="ticker" aria-hidden="true">
-    <div class="ticker__track">
-      <span>기업 홈페이지 리뉴얼 <i>◆</i> 구조 설계 <i>◆</i> 카피 정리 <i>◆</i> 모바일 반응형 <i>◆</i> 검색 노출 <i>◆</i> 운영 교육 <i>◆</i></span>
-      <span>기업 홈페이지 리뉴얼 <i>◆</i> 구조 설계 <i>◆</i> 카피 정리 <i>◆</i> 모바일 반응형 <i>◆</i> 검색 노출 <i>◆</i> 운영 교육 <i>◆</i></span>
+    <div class="cv__b">
+      <div class="cv__b-stage">
+        <div class="inner cv__b-in">
+          <p class="label">THE GAP</p>
+          <h2 class="cv__h">회사는 그동안<br><em>달라졌습니다.</em></h2>
+          <p class="cv__sub">직원이 늘고, 서비스가 바뀌고, 거래처도 달라졌습니다.<br>홈페이지만 그 자리에 멈춰 있습니다.</p>
+          <a class="btn cv__cta" href="#signs">우리 홈페이지는 어떤지 확인하기 →</a>
+        </div>
+      </div>
     </div>
   </div>
 

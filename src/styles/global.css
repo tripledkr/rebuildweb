@@ -375,13 +375,6 @@ body{font-family:'Archivo','Pretendard Variable',Pretendard,-apple-system,BlinkM
   animation:orb-breathe 9s ease-in-out infinite}
 @keyframes orb-breathe{0%,100%{opacity:.75;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.12)}}
 
-/* 흐르는 키워드 띠 */
-.ticker{overflow:hidden;padding:26px 0;background:#111;color:#fff;border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1)}
-.ticker__track{display:flex;width:max-content;animation:tick 34s linear infinite}
-.ticker__track span{display:flex;align-items:center;gap:30px;padding-right:30px;font-size:clamp(17px,2vw,24px);font-weight:800;letter-spacing:-.02em;white-space:nowrap}
-.ticker__track i{font-style:normal;color:var(--accent);font-size:.7em}
-.ticker:hover .ticker__track{animation-play-state:paused}
-@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* 등장 효과 : 살짝 확대 추가 */
 [data-reveal],[data-reveal-group]>*{transform:translateY(24px) scale(.985)}
@@ -410,12 +403,44 @@ body{font-family:'Archivo','Pretendard Variable',Pretendard,-apple-system,BlinkM
 .steps li{position:relative;overflow:hidden}
 
 @media (max-width:640px){
-  .ticker{padding:18px 0}
   .hero--dark .hero__orb{width:520px;height:520px}
 }
 @media (prefers-reduced-motion:reduce){
   .hero--dark .hero__orb{animation:none;transition:none}
-  .ticker__track{animation:none}
   .btn:hover::before{animation:none}
   [data-reveal],[data-reveal-group]>*{transform:none}
+}
+
+/* ===== 덮기 전환 (아래 → 위로 걷힘) ===== */
+.cv{position:relative;background:var(--bg)}
+/* A : 히어로. 걷히는 동안 화면에 고정 */
+.cv__a{position:relative;z-index:1;height:185svh}
+.cv__a-stage{position:sticky;top:0;height:100svh;overflow:hidden;background:#0A0E18}
+.cv__a-stage .hero{height:100%;min-height:0;max-height:none;padding:0;display:flex;flex-direction:column;justify-content:center}
+.cv__a-stage .hero__points{margin-top:56px}
+/* B : A와 같은 자리에서 시작, A 위에 놓임 */
+.cv__b{position:relative;z-index:2;margin-top:-185svh;height:235svh;pointer-events:none}
+.cv__b-stage{position:sticky;top:0;height:100svh;display:flex;align-items:center;background:var(--bg);
+  clip-path:inset(100% 0 0 0);will-change:clip-path;pointer-events:auto}
+.cv__b-in{width:100%}
+.cv__h{margin:18px 0 0;font-size:clamp(38px,6.4vw,92px);font-weight:800;line-height:1.14;letter-spacing:-.045em}
+.cv__sub{margin-top:28px;font-size:clamp(16px,1.5vw,20px);line-height:1.8;color:#555}
+.cv__cta{margin-top:44px;align-self:flex-start}
+/* 내용은 처음부터 제자리에 있고, 막만 걷힌다 */
+.cv__b-stage{padding:96px 0}
+.cv__b-in{display:flex;flex-direction:column;justify-content:center;min-height:calc(100svh - 192px)}
+/* 다 걷힌 뒤 포인트 컬러가 들어옴 */
+.cv__h em{font-style:normal;color:#111;transition:color .6s ease .15s}
+.cv.is-revealed .cv__h em{color:var(--accent)}
+/* 걷히기 전에는 A의 버튼이 눌려야 하므로 가려진 영역은 클릭을 막지 않음 */
+.cv__b{contain:layout}
+
+@media (max-width:640px){
+  .cv__a{height:170svh}
+  .cv__b{margin-top:-170svh;height:218svh}
+  .cv__sub{margin-top:20px}
+  .cv__cta{margin-top:32px}
+}
+@media (prefers-reduced-motion:reduce){
+  .cv__h em{transition:none}
 }

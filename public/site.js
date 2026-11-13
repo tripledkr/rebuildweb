@@ -87,6 +87,53 @@
   });
 
 
+
+  /* 덮기 전환 : B가 A 위를 아래에서 위로 걷히며 덮는다 */
+  document.querySelectorAll('[data-curtain]').forEach(function (root) {
+    var b = root.querySelector('.cv__b');
+    var stage = root.querySelector('.cv__b-stage');
+    if (!b || !stage) return;
+
+    var DIST = 0.85;   /* 걷히는 거리 = 화면 높이 × 이 값 (크게 → 더 천천히) */
+    var LERP = 0.14;   /* 따라붙는 정도 (작게 → 더 미끄럽게) */
+
+    var cur = 0, target = 0, raf = null, revealed = null;
+
+    function easeInOutCubic(x) {
+      return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+    }
+
+    function apply(v) {
+      if (v >= 0.999) {
+        stage.style.clipPath = 'none';
+        if (revealed !== true) { revealed = true; root.classList.add('is-revealed'); }
+      } else {
+        stage.style.clipPath = 'inset(' + ((1 - v) * 100).toFixed(3) + '% 0 0 0)';
+        if (revealed !== false) { revealed = false; root.classList.remove('is-revealed'); }
+      }
+    }
+
+    function tick() {
+      cur += (target - cur) * LERP;
+      if (Math.abs(target - cur) < 0.0008) { cur = target; apply(cur); raf = null; return; }
+      apply(cur);
+      raf = requestAnimationFrame(tick);
+    }
+
+    function measure() {
+      var passed = -b.getBoundingClientRect().top;
+      var span = window.innerHeight * DIST;
+      var tRaw = span > 0 ? passed / span : 0;
+      target = easeInOutCubic(Math.min(1, Math.max(0, tRaw)));
+      if (reduce) { cur = target; apply(cur); return; }
+      if (raf === null) raf = requestAnimationFrame(tick);
+    }
+
+    window.addEventListener('scroll', measure, { passive: true });
+    window.addEventListener('resize', measure);
+    measure();
+  });
+
   /* 상단 스크롤 진행 바 */
   (function () {
     var bar = document.createElement('div');
