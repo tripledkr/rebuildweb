@@ -2,16 +2,79 @@
 import site from '../site.config.mjs';
 interface Props { title: string; lead: string }
 const { title, lead } = Astro.props;
+const endpoint = site.contact.formEndpoint;
 ---
 <section class="sec contact" id="contact" aria-labelledby="contact-title">
   <div class="inner">
     <p class="label">CONTACT</p>
     <h2 id="contact-title" class="h2">{title}</h2>
     <p class="lead">{lead}</p>
-    <div class="contact__grid">
-      <a class="contact__item" href={site.contact.formUrl}><span>문의서 작성</span><strong>상담 신청하기 →</strong></a>
-      <a class="contact__item" href={`tel:${site.contact.tel}`}><span>전화</span><strong>{site.contact.tel}</strong></a>
-      <a class="contact__item" href={`mailto:${site.contact.email}`}><span>이메일</span><strong>{site.contact.email}</strong></a>
-    </div>
+
+    {endpoint ? (
+      <div class="contact__wrap">
+        <form class="form" data-endpoint={endpoint} data-site={site.name} novalidate>
+          <div class="form__row">
+            <label class="field"><span>이름 <em>필수</em></span><input type="text" name="name" autocomplete="name" required></label>
+            <label class="field"><span>회사명</span><input type="text" name="company" autocomplete="organization"></label>
+          </div>
+          <div class="form__row">
+            <label class="field"><span>연락처 <em>필수</em></span><input type="tel" name="phone" autocomplete="tel" inputmode="tel" placeholder="010-0000-0000" required></label>
+            <label class="field"><span>이메일</span><input type="email" name="email" autocomplete="email"></label>
+          </div>
+          <label class="field"><span>기존 홈페이지 주소</span><input type="text" name="url" inputmode="url" placeholder="없으면 비워 두세요"></label>
+          <label class="field"><span>문의 내용 <em>필수</em></span><textarea name="message" rows="5" placeholder="정리되지 않은 내용도 괜찮습니다." required></textarea></label>
+          <!-- 스팸 방지용 숨김 항목 -->
+          <div class="form__hp" aria-hidden="true"><label>웹사이트<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+          <label class="form__agree"><input type="checkbox" name="agree" required><span>개인정보 수집 · 이용에 동의합니다. <em>필수</em></span></label>
+          <p class="form__privacy">수집 항목: 이름, 연락처, 회사명, 이메일, 문의 내용 · 수집 목적: 상담 및 견적 안내 · 보유 기간: {site.contact.privacyPeriod} · 동의하지 않을 수 있으며, 이 경우 상담 신청이 제한됩니다.</p>
+          <button class="btn form__submit" type="submit">상담 신청하기 →</button>
+          <p class="form__msg" role="status" aria-live="polite"></p>
+        </form>
+        <div class="contact__side">
+          <a class="contact__item" href={`tel:${site.contact.tel}`}><span>전화</span><strong>{site.contact.tel}</strong></a>
+          <a class="contact__item" href={`mailto:${site.contact.email}`}><span>이메일</span><strong>{site.contact.email}</strong></a>
+        </div>
+      </div>
+    ) : (
+      <div class="contact__grid">
+        <a class="contact__item" href={site.contact.formUrl}><span>문의서 작성</span><strong>상담 신청하기 →</strong></a>
+        <a class="contact__item" href={`tel:${site.contact.tel}`}><span>전화</span><strong>{site.contact.tel}</strong></a>
+        <a class="contact__item" href={`mailto:${site.contact.email}`}><span>이메일</span><strong>{site.contact.email}</strong></a>
+      </div>
+    )}
   </div>
 </section>
+
+<script is:inline>
+(function () {
+  var form = document.querySelector('.form[data-endpoint]');
+  if (!form) return;
+  var msg = form.querySelector('.form__msg');
+  var btn = form.querySelector('.form__submit');
+  function say(text, ok) { msg.textContent = text; msg.className = 'form__msg ' + (ok ? 'is-ok' : 'is-err'); }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var f = form.elements;
+    if (f.website.value) return; /* 스팸 봇 차단 */
+    if (!f.name.value.trim() || !f.phone.value.trim() || !f.message.value.trim()) { say('이름, 연락처, 문의 내용을 입력해 주세요.'); return; }
+    if (!f.agree.checked) { say('개인정보 수집 · 이용에 동의해 주세요.'); return; }
+
+    var body = new URLSearchParams();
+    ['name', 'company', 'phone', 'email', 'url', 'message'].forEach(function (k) { body.append(k, f[k].value.trim()); });
+    body.append('site', form.getAttribute('data-site'));
+    body.append('page', location.href);
+
+    btn.disabled = true; btn.textContent = '보내는 중…';
+    fetch(form.getAttribute('data-endpoint'), { method: 'POST', mode: 'no-cors', body: body })
+      .then(function () {
+        form.reset();
+        say('상담 신청이 접수되었습니다. 확인 후 연락드리겠습니다.', true);
+      })
+      .catch(function () {
+        say('전송에 실패했습니다. 잠시 후 다시 시도하시거나 전화로 문의해 주세요.');
+      })
+      .then(function () { btn.disabled = false; btn.textContent = '상담 신청하기 →'; });
+  });
+})();
+</script>
