@@ -1,7 +1,7 @@
 /* 사이트 기본 정보 : 배포 전 [ ] 항목을 실제 값으로 교체 */
 export default {
   name: '리빌드웹',
-  url: 'https://rebuildweb.kr', // 실제 도메인으로 교체
+  url: 'https://rebuildweb.vercel.app', // 실제 도메인으로 교체
   keyword: '기업 홈페이지 리뉴얼',
   theme: {
     accent: '#1F3FD1',
