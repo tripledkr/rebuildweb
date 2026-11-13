@@ -21,6 +21,7 @@
     var to = parseFloat(el.getAttribute('data-count'));
     if (isNaN(to)) return;
     if (reduce) { el.textContent = String(to); return; }
+    el.textContent = '0';
     var start = null, dur = 1100;
     function step(ts) {
       if (start === null) start = ts;
