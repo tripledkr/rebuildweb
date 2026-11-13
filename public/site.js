@@ -86,6 +86,51 @@
     document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); });
   });
 
+
+  /* 상단 스크롤 진행 바 */
+  (function () {
+    var bar = document.createElement('div');
+    bar.className = 'prog';
+    document.body.appendChild(bar);
+    var ticking = false;
+    function draw() {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.width = (max > 0 ? (window.scrollY / max) * 100 : 0) + '%';
+      ticking = false;
+    }
+    window.addEventListener('scroll', function () {
+      if (!ticking) { ticking = true; requestAnimationFrame(draw); }
+    }, { passive: true });
+    draw();
+  })();
+
+  /* 히어로 빛이 마우스를 따라옴 (데스크톱) */
+  (function () {
+    var hero = document.querySelector('.hero');
+    var orb = hero && hero.querySelector('.hero__orb');
+    if (!orb || reduce || !window.matchMedia('(hover:hover) and (min-width:1024px)').matches) return;
+    hero.addEventListener('mousemove', function (e) {
+      var r = hero.getBoundingClientRect();
+      orb.style.setProperty('--ox', ((e.clientX - r.left) / r.width) * 100 + '%');
+      orb.style.setProperty('--oy', ((e.clientY - r.top) / r.height) * 100 + '%');
+    });
+    hero.addEventListener('mouseleave', function () {
+      orb.style.removeProperty('--ox');
+      orb.style.removeProperty('--oy');
+    });
+  })();
+
+  /* 카드 호버 글로우 위치 */
+  if (!reduce && window.matchMedia('(hover:hover)').matches) {
+    document.querySelectorAll('.card').forEach(function (c) {
+      c.addEventListener('mousemove', function (e) {
+        var r = c.getBoundingClientRect();
+        c.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      });
+    });
+  }
+
   /* 내부 앵커 부드러운 이동 */
   if (!reduce) {
     document.querySelectorAll('a[href^="/#"], a[href^="#"]').forEach(function (a) {
