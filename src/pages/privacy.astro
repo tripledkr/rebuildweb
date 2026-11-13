@@ -1,0 +1,85 @@
+---
+import Base from '../layouts/Base.astro';
+import site from '../site.config.mjs';
+const b = site.business;
+---
+<Base
+  title={`개인정보처리방침 | ${site.name}`}
+  description={`${site.name}의 개인정보 수집 항목, 이용 목적, 보유 기간과 정보주체의 권리를 안내합니다.`}
+>
+  <section class="pagehead">
+    <div class="inner inner--narrow">
+      <nav class="crumb" aria-label="현재 위치"><a href="/">홈</a><span aria-hidden="true">/</span><span>개인정보처리방침</span></nav>
+      <h1 class="h1" style="font-size:clamp(28px,3.4vw,44px)">개인정보처리방침</h1>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="inner inner--narrow prose">
+      <p>{b.company}(이하 "회사")는 「개인정보 보호법」에 따라 이용자의 개인정보를 보호하고 관련 고충을 신속하게 처리하기 위하여 다음과 같이 개인정보처리방침을 수립·공개합니다.</p>
+
+      <h2>1. 수집하는 개인정보 항목</h2>
+      <p>회사는 상담 신청을 위해 아래 항목을 수집합니다.</p>
+      <ul>
+        <li>필수 항목: 이름, 연락처, 문의 내용</li>
+        <li>선택 항목: 회사명, 이메일 주소, 기존 홈페이지 주소</li>
+        <li>자동 수집 항목: 문의가 접수된 페이지 주소, 접수 일시</li>
+      </ul>
+
+      <h2>2. 개인정보의 수집 및 이용 목적</h2>
+      <ul>
+        <li>상담 신청 확인 및 회신</li>
+        <li>서비스 범위 안내와 견적 제공</li>
+        <li>계약 진행에 필요한 연락</li>
+      </ul>
+
+      <h2>3. 개인정보의 보유 및 이용 기간</h2>
+      <p>수집한 개인정보는 <strong>{site.contact.privacyPeriod}</strong>까지 보유하며, 기간이 지나면 지체 없이 파기합니다. 다만 관계 법령에 따라 보존할 필요가 있는 경우 해당 기간 동안 보관합니다.</p>
+
+      <h2>4. 개인정보의 제3자 제공</h2>
+      <p>회사는 이용자의 개인정보를 제3자에게 제공하지 않습니다. 다만 법령에 따라 요구되는 경우는 예외로 합니다.</p>
+
+      <h2>5. 개인정보 처리의 위탁</h2>
+      <p>회사는 상담 내용의 접수와 보관을 위해 아래와 같이 업무를 위탁하고 있습니다.</p>
+      <table>
+        <thead><tr><th>수탁업체</th><th>위탁 업무</th></tr></thead>
+        <tbody>
+          <tr><td>Google LLC</td><td>문의 내용 저장 및 알림 (Google Workspace)</td></tr>
+          <tr><td>Vercel Inc.</td><td>웹사이트 호스팅</td></tr>
+        </tbody>
+      </table>
+
+      <h2>6. 개인정보의 파기 절차 및 방법</h2>
+      <p>보유 기간이 지나거나 처리 목적이 달성된 개인정보는 지체 없이 파기합니다. 전자적 파일은 복구할 수 없는 방법으로 삭제하고, 출력물은 분쇄하거나 소각합니다.</p>
+
+      <h2>7. 정보주체의 권리와 행사 방법</h2>
+      <p>이용자는 언제든지 자신의 개인정보에 대한 열람, 정정, 삭제, 처리정지를 요구할 수 있습니다. 아래 연락처로 요청하시면 지체 없이 조치합니다.</p>
+
+      <h2>8. 개인정보의 안전성 확보 조치</h2>
+      <ul>
+        <li>개인정보 취급자를 최소한으로 제한하고 정기적으로 교육합니다.</li>
+        <li>개인정보가 저장된 시스템에 접근 권한을 제한합니다.</li>
+        <li>개인정보 전송 구간을 암호화(HTTPS)하여 보호합니다.</li>
+      </ul>
+
+      <h2>9. 개인정보 보호책임자</h2>
+      <ul>
+        <li>책임자: {b.ceo} ({b.company})</li>
+        <li>전화: <a href={`tel:${site.contact.tel}`}>{site.contact.tel}</a></li>
+        <li>카카오톡 상담: <a href={site.contact.kakao} target="_blank" rel="noopener">상담 채널 바로가기</a></li>
+      </ul>
+
+      <h2>10. 권익침해 구제 방법</h2>
+      <p>개인정보 침해에 대한 신고나 상담이 필요한 경우 아래 기관에 문의하실 수 있습니다.</p>
+      <ul>
+        <li>개인정보침해 신고센터 (privacy.kisa.or.kr / 국번 없이 118)</li>
+        <li>개인정보 분쟁조정위원회 (kopico.go.kr / 1833-6972)</li>
+        <li>대검찰청 사이버수사과 (spo.go.kr / 1301)</li>
+        <li>경찰청 사이버수사국 (ecrm.police.go.kr / 국번 없이 182)</li>
+      </ul>
+
+      <h2>11. 방침의 변경</h2>
+      <p>이 개인정보처리방침은 2026년 11월 13일부터 적용됩니다. 내용이 변경되는 경우 변경 사항을 웹사이트에 공지합니다.</p>
+    </div>
+  </section>
+</Base>

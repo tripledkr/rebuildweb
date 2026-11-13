@@ -37,6 +37,9 @@ const schemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="sitemap" href="/sitemap-index.xml">
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&display=swap">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
   <style set:html={`:root{--accent:${site.theme.accent};--accent-soft:${site.theme.accentSoft};--bg:${site.theme.bg}}`}></style>
   {schemas.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}

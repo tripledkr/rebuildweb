@@ -266,3 +266,22 @@ img{display:block;max-width:100%;height:auto}
   .hero--light .hero__veil{background:linear-gradient(180deg,rgba(252,251,248,.92) 0%,rgba(252,251,248,.86) 60%,rgba(252,251,248,.92) 100%)}
   .hero--dark .hero__veil{background:linear-gradient(180deg,rgba(8,12,24,.9) 0%,rgba(8,12,24,.84) 60%,rgba(8,12,24,.94) 100%)}
 }
+
+/* 푸터 · 연락 */
+.ft__in{display:flex;justify-content:space-between;gap:32px;flex-wrap:wrap}
+.ft__info a:hover{color:var(--accent)}
+.ft__right{text-align:right}
+.ft__links{display:flex;gap:18px;justify-content:flex-end;flex-wrap:wrap;font-size:14px;font-weight:600}
+.ft__links a:hover{color:var(--accent)}
+.ft__copy{margin-top:14px}
+.contact__item--kakao{background:#FEE500;border-color:#FEE500}
+.contact__item--kakao:hover{border-color:#111;background:#FFEB3B}
+.contact__item--kakao span,.contact__item--kakao strong,.contact__item--kakao em{color:#1a1a1a}
+.contact__item em{font-style:normal;font-size:13px;color:#777}
+@media (max-width:640px){.ft__right{text-align:left}.ft__links{justify-content:flex-start}}
+
+/* 영문 폰트 : Archivo (한글은 Pretendard로 자동 분담) */
+body{font-family:'Archivo','Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Noto Sans KR',sans-serif}
+.label,.hero__kw,.hd__logo,.ba__tag,.steps b,.ft__logo,.post__cat{font-family:'Archivo','Pretendard Variable',Pretendard,sans-serif;font-weight:800}
+.h1,.h2,.article__title,.statbar strong,.hero__points strong{letter-spacing:-.04em}
+.statbar strong,.hero__kw{font-feature-settings:'tnum'}

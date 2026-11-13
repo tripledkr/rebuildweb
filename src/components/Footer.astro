@@ -4,11 +4,19 @@ const b = site.business;
 ---
 <footer class="ft">
   <div class="inner ft__in">
-    <p class="ft__logo">{site.name}</p>
-    <p class="ft__info">
-      상호 {b.company} · 대표 {b.ceo} · 사업자등록번호 {b.bizNo}<br>
-      주소 {b.address} · 전화 {site.contact.tel} · 이메일 {site.contact.email}
-    </p>
-    <p class="ft__copy">© {new Date().getFullYear()} {site.name}</p>
+    <div>
+      <p class="ft__logo">{site.name}</p>
+      <p class="ft__info">
+        {b.company} · 대표 {b.ceo}<br>
+        전화 <a href={`tel:${site.contact.tel}`}>{site.contact.tel}</a>
+      </p>
+    </div>
+    <div class="ft__right">
+      <p class="ft__links">
+        <a href="/privacy">개인정보처리방침</a>
+        <a href={site.contact.kakao} target="_blank" rel="noopener">카카오톡 상담</a>
+      </p>
+      <p class="ft__copy">© {new Date().getFullYear()} {site.name}</p>
+    </div>
   </div>
 </footer>
