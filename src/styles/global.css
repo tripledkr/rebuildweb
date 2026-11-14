@@ -1200,3 +1200,4 @@ body{color:var(--ink);letter-spacing:-.02em;line-height:1.6}
   transition:transform 1s cubic-bezier(.22,.8,.3,1)}
 .is-lines-in .ln__i{transform:none}
 @media (prefers-reduced-motion:reduce){ .ln__i{transform:none;transition:none} }
+.wipe__stage{aspect-ratio:2640/1776}
