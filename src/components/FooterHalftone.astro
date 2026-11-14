@@ -1,0 +1,263 @@
+---
+/* 하프톤 워드마크 푸터
+   원본: 21st.dev "Halftone Wordmark Footer" (React) — Astro + 바닐라 JS로 이식.
+   하단에 잘린 대형 워드마크를 캔버스 하프톤 점으로 출력하고,
+   포인터 주변의 점이 스프링으로 밀려났다가 제자리로 돌아옵니다. */
+import site from '../site.config.mjs';
+const b = site.business;
+
+interface Props {
+  wordmark?: string;
+  background?: string;
+  ink?: string;
+  warm?: string;
+  dotGap?: number;
+  crop?: number;
+  height?: string;
+}
+const {
+  wordmark = 'rebuildweb',
+  background = '#0A0E18',
+  ink = '#E8E8EA',
+  warm = '#5A7DFF',
+  dotGap = 6,
+  crop = 0.22,
+  height = 'clamp(360px, 42vw, 520px)',
+} = Astro.props;
+---
+
+<footer
+  class="hwf"
+  data-wordmark={wordmark}
+  data-bg={background}
+  data-ink={ink}
+  data-warm={warm}
+  data-gap={String(dotGap)}
+  data-crop={String(crop)}
+  style={`--hwf-bg:${background};--hwf-ink:${ink};height:${height}`}
+>
+  <canvas class="hwf__canvas" aria-hidden="true"></canvas>
+  <span class="hwf__sr">{wordmark}</span>
+
+  <div class="hwf__top">
+    <div class="hwf__brand">
+      <strong>{b.company}</strong>
+      <span>전화 <a href={`tel:${site.contact.tel}`}>{site.contact.tel}</a></span>
+    </div>
+    <nav class="hwf__col" aria-label="안내">
+      <ul>
+        <li><a href="/privacy">개인정보처리방침</a></li>
+        <li><a href={site.contact.kakao} target="_blank" rel="noopener">카카오톡 상담</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="hwf__rule">
+    <button type="button" class="hwf__up">맨 위로 ↑</button>
+  </div>
+</footer>
+
+<script>
+  function initHalftone(root: HTMLElement) {
+    const canvas = root.querySelector('.hwf__canvas') as HTMLCanvasElement | null;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const hex = (v: string): number[] => {
+      const m = /^#?([0-9a-f]{3}|[0-9a-f]{6})$/i.exec((v || '').trim());
+      if (!m) return [255, 255, 255];
+      const h = m[1].length === 3 ? m[1].split('').map((c) => c + c).join('') : m[1];
+      return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)];
+    };
+
+    const word = root.dataset.wordmark || 'studio';
+    const bg = root.dataset.bg || '#0A0E18';
+    const ink = hex(root.dataset.ink || '#E8E8EA');
+    const warm = hex(root.dataset.warm || '#5A7DFF');
+    const gap = Math.max(3, Number(root.dataset.gap) || 6);
+    const crop = Math.max(0, Math.min(0.6, Number(root.dataset.crop) || 0.22));
+    const face = "800 100px 'Pretendard Variable', Pretendard, system-ui, sans-serif";
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let w = 0, h = 0, dpr = 1;
+    let px = -1e5, py = -1e5;
+    let raf = 0, visible = true, awake = true;
+    let ring = { x: 0, y: 0, t: -1 };
+    let dots = new Float32Array(0);
+    let count = 0;
+    let grain: HTMLCanvasElement | null = null;
+
+    function layout() {
+      const rect = root.getBoundingClientRect();
+      w = Math.max(1, Math.round(rect.width));
+      h = Math.max(1, Math.round(rect.height));
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
+
+      const mask = document.createElement('canvas');
+      mask.width = w; mask.height = h;
+      const m = mask.getContext('2d', { willReadFrequently: true });
+      if (!m) return;
+      m.font = face;
+      const base = m.measureText(word).width;
+      const fit = base > 0 ? (w * 1.02 / base) * 100 : 0;
+      m.font = face.replace('100px', fit + 'px');
+      const box = m.measureText(word);
+      const cap = box.actualBoundingBoxAscent || fit * 0.72;
+      m.fillStyle = '#000';
+      m.textBaseline = 'alphabetic';
+      m.fillText(word, (w - box.width) / 2, h + cap * crop);
+      const img = m.getImageData(0, 0, w, h).data;
+
+      const cols = Math.ceil(w / gap);
+      const rows = Math.ceil(h / gap);
+      const tmp: number[] = [];
+      for (let gy = 0; gy < rows; gy++) {
+        for (let gx = 0; gx < cols; gx++) {
+          let sum = 0;
+          for (let sy = 0; sy < 3; sy++) {
+            for (let sx = 0; sx < 3; sx++) {
+              const x = Math.min(w - 1, Math.floor(gx * gap + ((sx + 0.5) * gap) / 3));
+              const y = Math.min(h - 1, Math.floor(gy * gap + ((sy + 0.5) * gap) / 3));
+              sum += img[(y * w + x) * 4 + 3];
+            }
+          }
+          const cov = sum / (9 * 255);
+          if (cov < 0.06) continue;
+          const hx = gx * gap + gap / 2;
+          const hy = gy * gap + gap / 2;
+          tmp.push(hx, hy, 0, 0, hx, hy, Math.sqrt(cov) * gap * 0.56);
+        }
+      }
+      dots = new Float32Array(tmp);
+      count = tmp.length / 7;
+
+      grain = document.createElement('canvas');
+      grain.width = 256; grain.height = 256;
+      const g = grain.getContext('2d');
+      if (g) {
+        const id = g.createImageData(256, 256);
+        for (let i = 0; i < id.data.length; i += 4) {
+          const v = Math.random() * 255;
+          id.data[i] = id.data[i + 1] = id.data[i + 2] = v;
+          id.data[i + 3] = Math.random() < 0.5 ? 0 : 255;
+        }
+        g.putImageData(id, 0, 0);
+      }
+      awake = true;
+    }
+
+    function draw(now: number) {
+      if (!ctx) return;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, w, h);
+
+      const r = reduced ? 0 : 80;
+      const ringAge = ring.t < 0 ? 1e9 : now - ring.t;
+      const ringR = ringAge * 0.9;
+      let moving = false;
+
+      for (let i = 0; i < count; i++) {
+        const j = i * 7;
+        let x = dots[j], y = dots[j + 1], vx = dots[j + 2], vy = dots[j + 3];
+        const hx = dots[j + 4], hy = dots[j + 5];
+
+        if (!reduced) {
+          if (ringAge < 900) {
+            const dx = hx - ring.x, dy = hy - ring.y;
+            const d = Math.sqrt(dx * dx + dy * dy) + 0.001;
+            const band = 1 - Math.min(1, Math.abs(d - ringR) / 26);
+            if (band > 0) {
+              const f = band * 3.2 * (1 - ringAge / 900);
+              vx += (dx / d) * f; vy += (dy / d) * f;
+            }
+          }
+          const ddx = x - px, ddy = y - py;
+          const d2 = ddx * ddx + ddy * ddy;
+          if (r > 0 && d2 < r * r) {
+            const d = Math.sqrt(d2) + 0.001;
+            const f = (1 - d / r) * 2.6;
+            vx += (ddx / d) * f; vy += (ddy / d) * f;
+          }
+          vx = (vx + (hx - x) * 0.05) * 0.84;
+          vy = (vy + (hy - y) * 0.05) * 0.84;
+          x += vx; y += vy;
+
+          if (Math.abs(vx) + Math.abs(vy) > 0.02 || Math.abs(x - hx) + Math.abs(y - hy) > 0.05) moving = true;
+          else { x = hx; y = hy; vx = 0; vy = 0; }
+
+          dots[j] = x; dots[j + 1] = y; dots[j + 2] = vx; dots[j + 3] = vy;
+        }
+
+        const k = Math.min(1, Math.hypot(x - hx, y - hy) / 28);
+        ctx.fillStyle = k > 0.02
+          ? 'rgb(' + Math.round(ink[0] + (warm[0] - ink[0]) * k) + ',' +
+                     Math.round(ink[1] + (warm[1] - ink[1]) * k) + ',' +
+                     Math.round(ink[2] + (warm[2] - ink[2]) * k) + ')'
+          : root.dataset.ink || '#E8E8EA';
+        ctx.beginPath();
+        ctx.arc(x, y, dots[j + 6], 0, 6.2832);
+        ctx.fill();
+      }
+
+      if (grain) {
+        ctx.globalAlpha = 0.045;
+        ctx.globalCompositeOperation = 'overlay';
+        const pat = ctx.createPattern(grain, 'repeat');
+        if (pat) { ctx.fillStyle = pat; ctx.fillRect(0, 0, w, h); }
+        ctx.globalAlpha = 1;
+        ctx.globalCompositeOperation = 'source-over';
+      }
+      awake = moving || ringAge < 900 || px > -1e4;
+    }
+
+    function loop(now: number) {
+      raf = 0;
+      if (!visible) return;
+      draw(now);
+      if (awake) raf = requestAnimationFrame(loop);
+    }
+    function wake() {
+      awake = true;
+      if (!raf && visible) raf = requestAnimationFrame(loop);
+    }
+    function toLocal(e: PointerEvent) {
+      const b = canvas.getBoundingClientRect();
+      return [e.clientX - b.left, e.clientY - b.top];
+    }
+
+    layout();
+    draw(performance.now());
+    wake();
+
+    root.addEventListener('pointermove', (e) => {
+      const p = toLocal(e as PointerEvent); px = p[0]; py = p[1]; wake();
+    });
+    root.addEventListener('pointerleave', () => { px = -1e5; py = -1e5; wake(); });
+    root.addEventListener('pointerdown', (e) => {
+      if (reduced) return;
+      if ((e.target as HTMLElement).closest('a,button')) return;
+      const p = toLocal(e as PointerEvent);
+      ring = { x: p[0], y: p[1], t: performance.now() };
+      wake();
+    });
+
+    new ResizeObserver(() => { layout(); wake(); }).observe(root);
+    new IntersectionObserver((en) => {
+      visible = en[0] ? en[0].isIntersecting : true;
+      if (visible) wake();
+    }).observe(root);
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => { layout(); wake(); });
+    }
+
+    const up = root.querySelector('.hwf__up');
+    if (up) up.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  }
+
+  document.querySelectorAll('.hwf').forEach((el) => initHalftone(el as HTMLElement));
+</script>
