@@ -244,3 +244,38 @@
   window.addEventListener('resize', paint);
   paint();
 })();
+
+/* ===== 리뉴얼 체크리스트: 선택 개수에 따른 안내 ===== */
+(function () {
+  var list = document.querySelector('[data-signs]');
+  var panel = document.querySelector('[data-signs-result]');
+  if (!list || !panel) return;
+
+  var countEl = panel.querySelector('.signs__count b');
+  var msgEl = panel.querySelector('.signs__msg');
+  var boxes = [].slice.call(list.querySelectorAll('.signs__cb'));
+
+  var MESSAGES = [
+    { max: 0, alert: false, text: '해당하는 항목을 눌러 보세요.' },
+    { max: 1, alert: false, text: '한 가지라면 부분 수정으로 해결되는 경우가 많습니다. 어디를 고치면 되는지만 알려드릴게요.' },
+    { max: 3, alert: true,  text: '리뉴얼을 고민할 시점입니다. 겉모습보다 구조부터 손대면 나머지도 함께 풀립니다.' },
+    { max: 5, alert: true,  text: '지금 리뉴얼이 필요한 상태입니다. 부분 수정으로는 따라잡기 어려운 단계예요.' },
+    { max: 6, alert: true,  text: '여섯 가지 모두 해당합니다. 고쳐 쓰는 것보다 새로 짓는 편이 빠르고 저렴합니다.' },
+  ];
+
+  function update() {
+    var n = 0;
+    for (var i = 0; i < boxes.length; i++) if (boxes[i].checked) n++;
+    countEl.textContent = String(n);
+    for (var k = 0; k < MESSAGES.length; k++) {
+      if (n <= MESSAGES[k].max) {
+        msgEl.textContent = MESSAGES[k].text;
+        panel.classList.toggle('is-alert', MESSAGES[k].alert);
+        break;
+      }
+    }
+  }
+
+  boxes.forEach(function (b) { b.addEventListener('change', update); });
+  update();
+})();
