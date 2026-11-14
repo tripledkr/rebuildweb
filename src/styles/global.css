@@ -1175,18 +1175,20 @@ body{color:var(--ink);letter-spacing:-.02em;line-height:1.6}
   transition:opacity .35s ease}
 .wipe__cap--a{opacity:0}
 @media (max-width:760px){
+  /* 모바일: 배지(중앙) → 이미지 → 그 이미지의 설명 순서로 쌍을 이룸 */
   .wipe__bar,.wipe__knob{display:none}
-  .wipe__stage{aspect-ratio:auto;height:auto;background:none;border-radius:0;
-    display:flex;flex-direction:column;align-items:flex-start;gap:12px}
-  .wipe__img{position:static;height:auto;border-radius:10px}
-  .wipe__clip{position:static;clip-path:none !important;width:100%}
-  .wipe__tag{position:static;display:inline-block;margin:0;opacity:1 !important}
+  .wipe{display:flex;flex-direction:column}
+  .wipe__stage{display:contents}
+  .wipe__caps{display:contents}
+  .wipe__img{position:static;height:auto;border-radius:10px;width:100%}
+  .wipe__clip{position:static;clip-path:none !important;width:100%;order:2;margin-top:14px}
+  .wipe__tag{position:static;display:inline-block;margin:0;opacity:1 !important;align-self:center}
   .wipe__tag--b{order:1}
-  .wipe__clip{order:2}
-  .wipe__tag--a{order:3;margin-top:10px}
-  .wipe__img--after{order:4}
-  .wipe__caps{position:static;min-height:0;display:grid;gap:12px;margin-top:18px}
-  .wipe__cap{position:static;opacity:1 !important;text-align:left}
+  .wipe__cap--b{order:3;margin:14px 0 36px}
+  .wipe__tag--a{order:4}
+  .wipe__img--after{order:5;margin-top:14px}
+  .wipe__cap--a{order:6;margin-top:14px}
+  .wipe__cap{position:static;opacity:1 !important;text-align:center;text-wrap:balance}
 }
 @media (prefers-reduced-motion:reduce){
   .wipe__clip{clip-path:inset(0 50% 0 0) !important}
@@ -1297,7 +1299,7 @@ html{overflow-x:clip}
      M3 제목→리드     14px
      M4 헤드→본문     36px
      M5 본문 블록 간  24px
-     M6 히어로        상 48 / 하 56, 리드→버튼 24, 버튼→목업 32
+     M6 히어로        상 64 / 하 72 · 더갭 44/40 · 수치 36/48(가로 1열)
      M7 버튼 2개 가로 1열, 히어로 포인트 3개 가로 1열
    ================================================================ */
 .label{margin-bottom:16px}
@@ -1308,9 +1310,9 @@ html{overflow-x:clip}
 @media (max-width:640px){
   /* M1 — 섹션 상하 통일 */
   .sec,.sec--lift,.sec--soft,.sec--dark,.bento{padding-top:72px !important;padding-bottom:72px !important}
-  .statbar{padding-top:56px !important;padding-bottom:56px !important}
+  .statbar{padding-top:36px !important;padding-bottom:48px !important}
   .band,.band--photo,.band--hwf{padding-top:72px !important;padding-bottom:72px !important}
-  .cv__b-stage{padding-top:64px !important;padding-bottom:64px !important}
+  .cv__b-stage{padding-top:44px !important;padding-bottom:40px !important}
 
   /* M2 · M3 — 라벨/제목/리드 */
   .label{margin-bottom:10px}
@@ -1326,7 +1328,9 @@ html{overflow-x:clip}
   .cv__cards{margin-top:28px}
 
   /* M4 · M5 — 본문 블록 */
-  .grid6,.spine,.signs,.vs,.rv__rail,.rv2__grid,.bento__grid{margin-top:36px !important}
+  .grid6,.spine,.vs,.rv__rail,.rv2__grid,.bento__grid{margin-top:36px !important}
+  .signs{margin-top:48px !important}
+  .signs__result{margin-top:36px !important}
   .split{row-gap:32px}
   .split__note{margin-top:18px}
   .signs__result{margin-top:24px}
@@ -1336,7 +1340,7 @@ html{overflow-x:clip}
   .wipe__caps{margin-top:16px}
 
   /* M6 — 히어로 */
-  .hero{padding-top:48px !important;padding-bottom:56px !important;min-height:auto !important}
+  .hero{padding-top:64px !important;padding-bottom:72px !important;min-height:auto !important}
   .hero__kw{margin-bottom:14px}
   .hero .h1{margin:0}
   .hero .lead{margin-top:14px}
@@ -1500,3 +1504,22 @@ html{overflow-x:clip}
 .compare th[scope="row"]{font-size:16px;font-weight:700}
 .rv__who b{font-size:14px;font-weight:600}
 .ui-h,.ui-h2,.ui-done__t,.alert__txt b{font-weight:700}
+
+/* ================================================================
+   모바일 보강(2026-11-14): 수치 1열·체크 숫자 제거·한글 줄바꿈 정리
+   ================================================================ */
+@media (max-width:640px){
+  /* 수치: 세로 스택 → 가로 1열 3칸, 위로 당김 */
+  .statbar__in{grid-template-columns:repeat(3,minmax(0,1fr)) !important;gap:0 10px;padding:24px 0 0}
+  .statbar li{padding:0 !important;border-right:0 !important;border-bottom:0 !important}
+  .statbar strong{font-size:31px}
+  .statbar strong small{font-size:14px;margin-left:2px}
+  .statbar li>span{margin-top:8px;font-size:12.5px}
+  .statbar__note{margin-top:18px;font-size:12px}
+  /* 체크리스트: 번호 제거 */
+  .signs__n{display:none}
+  .signs__row{grid-template-columns:22px minmax(0,1fr) !important;gap:12px}
+  /* 한글 줄바꿈: 리드·노트류 균형 줄바꿈 */
+  .lead,.split__note,.ba__note,.head .lead{text-wrap:balance}
+  .cv__list li span{text-wrap:balance}
+}
