@@ -947,3 +947,20 @@ h1,h2,h3,h4,.h1,.h2,.h3{word-break:keep-all;text-wrap:balance}
 .steps li{padding-top:34px}
 .steps li::before{top:-4px}
 @media (max-width:860px){ .steps li{padding-top:24px} .steps li::before{top:-4px} }
+
+/* ===== 수치 띠 상하 여백 재조정 ===== */
+.statbar{padding:clamp(72px,7.5vw,104px) 0 clamp(72px,7.5vw,104px)}
+.statbar__note{margin-top:clamp(34px,3.4vw,46px)}
+.statbar li{padding:30px 16px 0}
+@media (max-width:640px){
+  .statbar{padding:clamp(56px,10vw,76px) 0}
+  .statbar li{padding:24px 0 0}
+  .statbar__note{margin-top:28px}
+}
+
+/* ===== 수치 띠 여백 최종 ===== */
+.statbar{padding:clamp(66px,6.6vw,92px) 0}
+.statbar__in{padding:0 !important;border-top:1px solid currentColor}
+.statbar li{padding:clamp(26px,2.6vw,34px) 16px 0 !important}
+.statbar__note{margin-top:clamp(30px,3vw,40px)}
+@media (max-width:640px){ .statbar{padding:clamp(52px,9vw,70px) 0} .statbar__note{margin-top:26px} }
