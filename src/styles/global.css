@@ -747,3 +747,13 @@ body{letter-spacing:-.008em}
 .compare td{color:#8E8E92}
 .compare td.is-good{color:#111;font-weight:600}
 .compare tr:last-child th,.compare tr:last-child td{border-bottom:1px solid #E4E2DC}
+
+/* ===== 사진 띠 ===== */
+.band--photo{position:relative;overflow:hidden;background:#0A0E18;
+  padding:clamp(130px,15vw,210px) 0}
+.band__bg{position:absolute;inset:0;background-image:url('/band.webp');
+  background-size:cover;background-position:50% 42%;opacity:.5}
+.band--photo::after{content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(8,11,20,.72) 0%,rgba(8,11,20,.46) 45%,rgba(8,11,20,.86) 100%)}
+.band--photo .inner{position:relative;z-index:2}
+.band--photo p{text-shadow:0 2px 28px rgba(0,0,0,.45)}
