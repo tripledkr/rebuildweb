@@ -42,10 +42,10 @@ const schema = [
       <div class="cv__a-stage">
     <!-- 히어로 -->
     <section class="hero hero--dark">
-      <div class="hero__bg" style="background-image:url('/hero.webp')" aria-hidden="true"></div>
-      <div class="hero__veil" aria-hidden="true"></div>
+      <div class="hero__grad" aria-hidden="true"></div>
       <div class="hero__orb" aria-hidden="true"></div>
-      <div class="inner">
+      <div class="inner hero__grid">
+        <div class="hero__copy">
         <p class="hero__kw" data-reveal>기업 홈페이지 리뉴얼</p>
         <h1 class="h1" data-reveal>오래된 회사 홈페이지,<br>6주 만에 다시 짓습니다.</h1>
         <p class="lead" data-reveal>회사는 성장했는데 홈페이지는 몇 년 전 그대로인가요? 리빌드웹은 흩어진 자료 정리부터 디자인, 개발, 운영 교육까지 기업 홈페이지 리뉴얼을 한 번에 진행합니다.</p>
@@ -53,6 +53,11 @@ const schema = [
           <a class="btn" href="#contact">무료 리뉴얼 상담 →</a>
           <a class="btn btn--line" href="#signs">리뉴얼이 필요한지 확인하기</a>
         </div>
+        </div>
+        <figure class="hero__shot" data-reveal>
+          <img src="/devices.webp" width="1382" height="941" alt="리뉴얼한 기업 홈페이지의 PC·모바일 화면 예시" loading="eager" decoding="async" fetchpriority="high">
+          <figcaption>설계 방식을 보여주는 예시 화면입니다</figcaption>
+        </figure>
         <ul class="hero__points" data-reveal-group>
           <li><strong>6주 완성</strong><span>상담부터 오픈까지 정해진 일정</span></li>
           <li><strong>자료 정리부터</strong><span>뒤섞인 자료도 구조로 정리</span></li>
@@ -122,126 +127,38 @@ const schema = [
         beforeCaption="메뉴가 많고 글이 빽빽합니다. 무엇을 먼저 봐야 할지 알 수 없고, 문의로 가는 길도 없습니다."
         afterCaption="회사가 하는 일이 한눈에 들어오고, 서비스를 읽은 방문자가 바로 상담으로 이어집니다."
       />
-      <div class="spine" data-spine>
-        <div class="spine__line" aria-hidden="true"></div>
-
-        <article class="srow" data-reveal>
-          <div class="srow__txt">
-            <p class="srow__no">SCOPE 01</p>
-            <h3 class="srow__t">메뉴 구조 재설계</h3>
-            <p class="srow__d">방문자가 찾는 순서대로 메뉴와 페이지를 다시 나눕니다. 회사 조직도 순서가 아니라, 고객이 궁금해하는 순서입니다.</p>
-          </div>
-          <div class="srow__gfx" aria-hidden="true">
-            <svg viewBox="8 12 244 204" fill="none">
-              <rect class="s-dim" x="106" y="22" width="48" height="26" rx="3"/>
-              <path class="s-dim" d="M130 48v30M46 108V78h168v30M130 78v30"/>
-              <rect class="s-key" x="18" y="108" width="56" height="26" rx="3"/>
-              <rect class="s-key" x="102" y="108" width="56" height="26" rx="3"/>
-              <rect class="s-dim" x="186" y="108" width="56" height="26" rx="3"/>
-              <path class="s-dim" d="M46 134v28M130 134v28M214 134v28"/>
-              <rect class="s-dim" x="18" y="162" width="56" height="18" rx="3"/>
-              <rect class="s-dim" x="18" y="188" width="56" height="18" rx="3"/>
-              <rect class="s-key" x="102" y="162" width="56" height="18" rx="3"/>
-              <rect class="s-dim" x="186" y="162" width="56" height="18" rx="3"/>
-              <circle class="s-dot" cx="130" cy="35" r="4"/>
-            </svg>
-          </div>
-        </article>
-
-        <article class="srow" data-reveal>
-          <div class="srow__txt">
-            <p class="srow__no">SCOPE 02</p>
-            <h3 class="srow__t">회사 소개 카피 정리</h3>
-            <p class="srow__d">흩어진 자료를 읽히는 문장으로 정리합니다. 몇 년 전 회사가 아니라 지금의 회사를 담습니다.</p>
-          </div>
-          <div class="srow__gfx" aria-hidden="true">
-            <svg viewBox="10 34 240 192" fill="none">
-              <path class="s-dim" d="M20 44h86M20 62h72M20 80h92M20 98h64M20 116h88M20 134h58"/>
-              <path class="s-key" d="M150 70h90M150 94h72M150 118h84"/>
-              <path class="s-dim" d="M150 156h90M150 174h66"/>
-              <path class="s-key" d="M112 90l26-10-26-10" stroke-linecap="round" stroke-linejoin="round"/>
-              <path class="s-dim" d="M112 80h24"/>
-              <rect class="s-dim" x="20" y="172" width="70" height="44" rx="3"/>
-              <circle class="s-dot" cx="146" cy="80" r="4"/>
-            </svg>
-          </div>
-        </article>
-
-        <article class="srow" data-reveal>
-          <div class="srow__txt">
-            <p class="srow__no">SCOPE 03</p>
-            <h3 class="srow__t">신뢰를 주는 디자인</h3>
-            <p class="srow__d">회사 규모와 업종에 맞는 톤으로 PC와 모바일 화면을 함께 설계합니다.</p>
-          </div>
-          <div class="srow__gfx" aria-hidden="true">
-            <svg viewBox="6 42 232 192" fill="none">
-              <rect class="s-dim" x="16" y="52" width="150" height="108" rx="4"/>
-              <path class="s-dim" d="M16 74h150"/>
-              <path class="s-key" d="M34 96h58M34 112h88M34 128h44"/>
-              <rect class="s-key" x="150" y="112" width="78" height="112" rx="8"/>
-              <path class="s-key" d="M150 132h78"/>
-              <path class="s-dim" d="M166 150h46M166 164h34M166 178h46"/>
-              <circle class="s-dim" cx="26" cy="63" r="3"/><circle class="s-dim" cx="36" cy="63" r="3"/>
-              <circle class="s-dot" cx="189" cy="122" r="4"/>
-            </svg>
-          </div>
-        </article>
-
-        <article class="srow" data-reveal>
-          <div class="srow__txt">
-            <p class="srow__no">SCOPE 04</p>
-            <h3 class="srow__t">문의로 이어지는 동선</h3>
-            <p class="srow__d">서비스를 본 방문자가 자연스럽게 문의까지 가도록 버튼과 폼을 배치합니다.</p>
-          </div>
-          <div class="srow__gfx" aria-hidden="true">
-            <svg viewBox="12 26 240 204" fill="none">
-              <circle class="s-dim" cx="42" cy="56" r="20"/>
-              <circle class="s-dim" cx="130" cy="124" r="20"/>
-              <circle class="s-key" cx="218" cy="196" r="24"/>
-              <path class="s-key" d="M58 70c28 6 40 20 56 40M146 140c26 8 42 24 54 40" stroke-linecap="round"/>
-              <path class="s-key" d="M206 226l14-10 14 10" stroke-linecap="round" stroke-linejoin="round" transform="rotate(180 220 221)"/>
-              <path class="s-dim" d="M34 56h16M122 124h16M208 196h20"/>
-              <circle class="s-dot" cx="218" cy="196" r="5"/>
-            </svg>
-          </div>
-        </article>
-
-        <article class="srow" data-reveal>
-          <div class="srow__txt">
-            <p class="srow__no">SCOPE 05</p>
-            <h3 class="srow__t">검색 노출 기본 설정</h3>
-            <p class="srow__d">페이지 제목과 설명, 사이트맵 등록까지 검색엔진이 읽기 좋게 세팅합니다.</p>
-          </div>
-          <div class="srow__gfx" aria-hidden="true">
-            <svg viewBox="2 0 220 220" fill="none">
-              <circle class="s-key" cx="112" cy="110" r="52"/>
-              <circle class="s-dim" cx="112" cy="110" r="76"/>
-              <circle class="s-dim" cx="112" cy="110" r="100"/>
-              <path class="s-key" d="M152 150l56 56" stroke-linecap="round"/>
-              <path class="s-dim" d="M86 100h52M86 114h38M86 128h46"/>
-              <circle class="s-dot" cx="112" cy="110" r="5"/>
-            </svg>
-          </div>
-        </article>
-
-        <article class="srow" data-reveal>
-          <div class="srow__txt">
-            <p class="srow__no">SCOPE 06</p>
-            <h3 class="srow__t">직접 운영 교육</h3>
-            <p class="srow__d">관리자 페이지 사용법을 1:1로 안내해 오픈 후 회사에서 바로 운영합니다.</p>
-          </div>
-          <div class="srow__gfx" aria-hidden="true">
-            <svg viewBox="12 36 236 180" fill="none">
-              <rect class="s-dim" x="22" y="46" width="216" height="140" rx="5"/>
-              <path class="s-dim" d="M22 72h216M58 206h144M130 186v20"/>
-              <path class="s-key" d="M48 96h64M48 114h48M48 132h58"/>
-              <rect class="s-key" x="140" y="92" width="74" height="52" rx="4"/>
-              <path class="s-key" d="M160 148l0 26 7-8 5 11 6-3-5-10h10z" stroke-linejoin="round"/>
-              <circle class="s-dot" cx="160" cy="148" r="4"/>
-            </svg>
-          </div>
-        </article>
-      </div>
+      <ol class="grid6">
+        <li data-reveal>
+          <span class="grid6__n">01</span>
+          <h3 class="grid6__t">메뉴 구조 재설계</h3>
+          <p class="grid6__d">방문자가 찾는 순서대로 메뉴와 페이지를 다시 나눕니다. 회사 조직도 순서가 아니라, 고객이 궁금해하는 순서입니다.</p>
+        </li>
+        <li data-reveal>
+          <span class="grid6__n">02</span>
+          <h3 class="grid6__t">회사 소개 카피 정리</h3>
+          <p class="grid6__d">흩어진 자료를 읽히는 문장으로 정리합니다. 몇 년 전 회사가 아니라 지금의 회사를 담습니다.</p>
+        </li>
+        <li data-reveal>
+          <span class="grid6__n">03</span>
+          <h3 class="grid6__t">신뢰를 주는 디자인</h3>
+          <p class="grid6__d">회사 규모와 업종에 맞는 톤으로 PC와 모바일 화면을 함께 설계합니다.</p>
+        </li>
+        <li data-reveal>
+          <span class="grid6__n">04</span>
+          <h3 class="grid6__t">문의로 이어지는 동선</h3>
+          <p class="grid6__d">서비스를 본 방문자가 자연스럽게 문의까지 가도록 버튼과 폼을 배치합니다.</p>
+        </li>
+        <li data-reveal>
+          <span class="grid6__n">05</span>
+          <h3 class="grid6__t">검색 노출 기본 설정</h3>
+          <p class="grid6__d">페이지 제목과 설명, 사이트맵 등록까지 검색엔진이 읽기 좋게 세팅합니다.</p>
+        </li>
+        <li data-reveal>
+          <span class="grid6__n">06</span>
+          <h3 class="grid6__t">직접 운영 교육</h3>
+          <p class="grid6__d">관리자 페이지 사용법을 1:1로 안내해 오픈 후 회사에서 바로 운영합니다.</p>
+        </li>
+      </ol>
     </div>
   </section>
 

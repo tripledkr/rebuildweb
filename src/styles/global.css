@@ -667,3 +667,70 @@ body{letter-spacing:-.008em}
   .plist__a:hover .plist__arrow{transform:none}
 }
 .plist__date{display:block;margin-top:14px;font-size:13px;letter-spacing:.06em;color:#A3A39E}
+
+/* ===== 히어로: 좌 카피 / 우 디바이스 비주얼 ===== */
+.hero__grid{display:grid;grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);
+  gap:clamp(32px,4vw,72px);align-items:center;row-gap:0}
+.hero__copy{grid-column:1;max-width:620px}
+.hero__shot{grid-column:2;margin:0;position:relative}
+.hero__shot img{display:block;width:100%;height:auto;
+  filter:drop-shadow(0 38px 70px rgba(0,0,0,.45))}
+.hero__shot figcaption{margin-top:18px;font-size:12.5px;letter-spacing:.02em;
+  color:rgba(255,255,255,.34);text-align:right}
+.hero__grid .hero__points{grid-column:1 / -1;margin-top:clamp(44px,5vw,76px)}
+@media (max-width:1080px){
+  .hero__grid{grid-template-columns:1fr}
+  .hero__copy,.hero__shot{grid-column:1}
+  .hero__shot{margin-top:46px}
+  .hero__shot figcaption{text-align:left}
+}
+
+/* ===== 라인아트 드로잉 애니메이션 제거 (선 끊김 원인) ===== */
+.srow__gfx svg [class^="s-"]{stroke-dasharray:none !important;stroke-dashoffset:0 !important;
+  transition:none !important}
+
+/* ===== BEFORE / AFTER — 실제 렌더 화면 ===== */
+.ba{align-items:start;margin-bottom:26px}
+.ba__img{display:block;width:100%;height:auto}
+.ba__item--before .ba__img{filter:saturate(.35) contrast(.97)}
+.ba__arrow{padding-top:120px}
+.ba figcaption{margin-top:6px;font-size:15.5px;line-height:1.75;color:#6A6A6F;max-width:430px}
+.ba__note{margin:0 0 70px;font-size:13px;color:#A2A29C;letter-spacing:.01em}
+.ba__tag{margin-bottom:6px}
+@media (max-width:900px){
+  .ba{grid-template-columns:1fr;gap:28px}
+  .ba__arrow{padding:0;transform:rotate(90deg)}
+}
+
+/* ===== 바뀌는 점: 테두리 없는 3×2 에디토리얼 그리드 ===== */
+.grid6{list-style:none;margin:72px 0 0;padding:0;
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  column-gap:clamp(32px,4vw,68px);row-gap:clamp(48px,5vw,74px)}
+.grid6 li{position:relative;padding-top:26px;border-top:1px solid #111}
+.grid6 li:nth-child(n+4){border-top-color:#111}
+.grid6__n{display:block;font-family:'Archivo','Pretendard Variable',sans-serif;
+  font-size:13px;font-weight:800;letter-spacing:.18em;color:#B3B3AE;transition:color .3s}
+.grid6 li:hover .grid6__n{color:var(--accent)}
+.grid6__t{margin:20px 0 0;font-size:clamp(19px,1.8vw,23px);font-weight:700;
+  line-height:1.38;letter-spacing:-.02em}
+.grid6__d{margin:14px 0 0;font-size:16px;line-height:1.8;letter-spacing:-.008em;color:#6A6A6F}
+@media (max-width:900px){ .grid6{grid-template-columns:repeat(2,minmax(0,1fr))} }
+@media (max-width:600px){ .grid6{grid-template-columns:1fr;row-gap:36px;margin-top:48px} }
+
+/* ===== 히어로 배경: 선 그래픽 제거, 깊이 있는 그라디언트 ===== */
+.hero__grad{position:absolute;inset:0;
+  background:
+    radial-gradient(1200px 760px at 68% 34%, rgba(42,72,170,.42), transparent 62%),
+    radial-gradient(900px 620px at 12% 88%, rgba(18,28,62,.75), transparent 66%),
+    linear-gradient(168deg,#0B0F1A 0%,#0A0E18 48%,#080B14 100%)}
+.hero__orb{background:radial-gradient(circle,rgba(90,125,255,.20),transparent 68%)}
+.hero__grid{position:relative;z-index:2}
+.hero .h1{font-size:clamp(33px,3.9vw,55px);line-height:1.22}
+.hero__grid{grid-template-columns:minmax(0,1.02fr) minmax(0,1.14fr)}
+.hero__copy{max-width:none}
+.hero .lead{max-width:540px}
+.hero__shot figcaption{max-width:100%;padding-right:2px}
+.hero__shot img{filter:drop-shadow(0 44px 80px rgba(0,0,0,.55))}
+@media (min-width:1081px){ .hero{padding-top:clamp(96px,9vw,132px);padding-bottom:clamp(72px,7vw,104px)} }
+.hero__scroll{bottom:26px}
+@media (min-width:1081px){ .hero{min-height:auto} }
