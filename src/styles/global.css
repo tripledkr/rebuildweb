@@ -1203,7 +1203,7 @@ body{color:var(--ink);letter-spacing:-.02em;line-height:1.6}
 .wipe__stage{aspect-ratio:2640/1776}
 
 /* ===== 전후 비교: 섹션 고정 후 그 자리에서 전환 ===== */
-.wipe-pin{position:relative;height:210svh}
+.wipe-pin{position:relative;height:175svh}
 .wipe-pin__inner{position:sticky;top:0;height:100svh;
   display:flex;flex-direction:column;justify-content:flex-start;padding-top:clamp(48px,9svh,96px)}
 .wipe{margin:0}
@@ -1573,7 +1573,7 @@ html{overflow-x:clip}
 @media (min-width:761px){ .wipe-pin{margin-top:-84px} }
 
 /* 와이프 핀 끝: 다크 페이드 → 다음 섹션으로 바로 전환 (빈 꼬리 제거) */
-.wipe__fade{position:absolute;top:0;bottom:0;left:50%;width:100vw;transform:translateX(-50%);background:#0C1018;opacity:0;pointer-events:none;z-index:6}
+/* (페이드 제거됨) */
 @media (min-width:761px){
   #scope{padding-bottom:0 !important}
   .ba__note{margin:18px 0 0 !important;position:static !important}

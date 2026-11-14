@@ -361,7 +361,6 @@
   }
 
   var pin = root.closest('[data-wipe-pin]');
-  var fade = pin ? pin.querySelector('[data-wipe-fade]') : null;
 
   function measure() {
     var t;
@@ -373,10 +372,9 @@
       else {
         var raw = (-pr.top) / span;
         // 앞뒤로 멈춰 있는 구간을 두어 전환이 급하지 않게
-        t = (raw - 0.14) / 0.72;
+        // 핀이 풀리는 순간에 와이프가 막 끝나도록: 멈춤 구간은 앞에만
+        t = (raw - 0.1) / 0.88;
         target = ease(Math.max(0, Math.min(1, t)));
-        // 마지막 구간: 다음 섹션 색으로 어두워지며 빈 꼬리를 덮는다
-        if (fade) fade.style.opacity = String(Math.max(0, Math.min(1, (raw - 0.86) / 0.12)));
       }
     } else {
       var r = stage.getBoundingClientRect();
