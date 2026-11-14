@@ -434,7 +434,7 @@ body{font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFo
 .cv__sub{margin-top:28px;font-size:clamp(16px,1.5vw,20px);line-height:1.8;color:#555}
 .cv__cta{margin-top:44px;align-self:flex-start}
 /* 내용은 처음부터 제자리에 있고, 막만 걷힌다 */
-.cv__b-stage{padding:96px 0}
+.cv__b-stage{padding:96px 0 48px}
 .cv__b-in{display:flex;flex-direction:column;justify-content:center;min-height:calc(100svh - 192px)}
 /* 다 걷힌 뒤 포인트 컬러가 들어옴 */
 .cv__h em{font-style:normal;color:#111;transition:color .6s ease .15s}
@@ -891,7 +891,7 @@ h1,h2,h3,h4,.h1,.h2,.h3{word-break:keep-all;text-wrap:balance}
 /* ===== 리뉴얼 체크: 체크박스 + 결과 안내 ===== */
 .signs li{padding:0;display:block}
 .signs li:hover{padding-left:0}
-.signs__row{display:grid;grid-template-columns:52px 24px minmax(0,1fr);gap:14px;align-items:center;
+.signs__row{display:grid;grid-template-columns:24px minmax(0,1fr);gap:16px;align-items:center;
   padding:26px 0;cursor:pointer;user-select:none}
 .signs__cb{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
 .signs__n{font-size:13px;font-weight:700;letter-spacing:.1em;color:#B3B3AE;transition:color .25s}
@@ -925,7 +925,7 @@ h1,h2,h3,h4,.h1,.h2,.h3{word-break:keep-all;text-wrap:balance}
   .signs__result{grid-template-columns:1fr;gap:14px;text-align:left}
   .signs__cta{justify-self:start;display:none}
   .signs__result.is-alert .signs__cta{display:inline-flex}
-  .signs__row{grid-template-columns:40px 22px minmax(0,1fr);gap:11px;padding:22px 0}
+  .signs__row{grid-template-columns:22px minmax(0,1fr);gap:12px;padding:22px 0}
 }
 @media (prefers-reduced-motion:reduce){
   .signs__row,.signs__box,.signs__box::after,.signs__cta{transition:none}
@@ -1203,9 +1203,9 @@ body{color:var(--ink);letter-spacing:-.02em;line-height:1.6}
 .wipe__stage{aspect-ratio:2640/1776}
 
 /* ===== 전후 비교: 섹션 고정 후 그 자리에서 전환 ===== */
-.wipe-pin{position:relative;height:260svh}
+.wipe-pin{position:relative;height:210svh}
 .wipe-pin__inner{position:sticky;top:0;height:100svh;
-  display:flex;flex-direction:column;justify-content:center}
+  display:flex;flex-direction:column;justify-content:flex-start;padding-top:clamp(48px,9svh,96px)}
 .wipe{margin:0}
 .wipe__stage{max-width:min(100%, calc(60svh * 1.4865));margin:0 auto;width:100%}
 .wipe__caps{margin-top:26px}
@@ -1531,3 +1531,41 @@ html{overflow-x:clip}
 }
 /* 3초 밴드: 모바일 균형 줄바꿈 */
 @media (max-width:640px){ .band p{text-wrap:balance} }
+
+/* ================================================================
+   수치 다크 밴드 · 체크 번호 제거 · 핀 여백 축소 · 컨택트 버튼 (PC+모바일)
+   ================================================================ */
+/* 수치: 독립된 다크 밴드로 — 위 섹션과 분리된 자기 정체성 */
+.statbar{background:#17171C;position:relative;z-index:3}
+.statbar strong,.statbar strong small{color:#fff}
+.statbar li>span{color:rgba(255,255,255,.62)}
+.statbar__note{color:rgba(255,255,255,.4)}
+.statbar__in{border-top:0}
+.statbar li{border-color:rgba(255,255,255,.14)}
+@media (min-width:641px){
+  .statbar{margin-top:-48px;padding-top:56px;padding-bottom:56px}
+  .statbar li{padding:0 16px !important}
+  .statbar__note{margin-top:28px}
+}
+@media (max-width:640px){
+  .statbar{margin-top:0;padding-top:40px !important;padding-bottom:44px !important}
+  .statbar__in{padding:0}
+}
+/* 체크 번호: 전 해상도 제거 */
+.signs__n{display:none !important}
+/* 와이프 핀 해제 후 빈 공간: 예시 문구 당김 (PC) */
+@media (min-width:761px){
+  .ba__note{margin-top:-110px;position:relative;z-index:2}
+  .wipe__caps{margin-top:22px}
+}
+/* 컨택트: 카카오색 제거 → 연한 하늘색 / 전화는 아주 연한 회색 */
+.contact__item{background:#F6F7F9;border:0}
+.contact__item:hover{border:0;background:#EFF1F4}
+.contact__item span{color:#8B95A1}
+.contact__item strong{color:#1C1F25}
+.contact__item em{color:#8B95A1}
+.contact__item--kakao{background:#E8F3FE;border:0}
+.contact__item--kakao:hover{background:#DCEcFC;border:0}
+.contact__item--kakao span{color:#5A96D8}
+.contact__item--kakao strong,.contact__item--kakao em{color:#1C1F25}
+.contact__item--kakao em{color:#727780}
