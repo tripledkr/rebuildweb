@@ -1019,3 +1019,4 @@ h1,h2,h3,h4,.h1,.h2,.h3{word-break:keep-all;text-wrap:balance}
   .rv__track{animation:none}
   .rv__row{overflow-x:auto}
 }
+.rv__src{display:inline-block;margin-top:12px;font-size:13.5px;letter-spacing:.01em;color:#9A9A95}

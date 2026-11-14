@@ -1,7 +1,7 @@
 ---
 /* 고객 후기 — 두 줄이 서로 반대 방향으로 흐르는 마키.
    src/data/reviews.mjs 의 reviews 배열이 비어 있으면 섹션 자체가 렌더되지 않습니다. */
-import { reviews, placeholder } from '../data/reviews.mjs';
+import { reviews, placeholder, source } from '../data/reviews.mjs';
 
 const PREVIEW = import.meta.env.REVIEW_PREVIEW === 'true';
 const items = reviews.length > 0 ? reviews : (PREVIEW ? placeholder : []);
@@ -17,7 +17,7 @@ const initial = (s) => (s || '?').trim().charAt(0);
           <p class="label">REVIEW</p>
           <h2 id="rv-title" class="h2">맡기고 나서<br>달라진 점.</h2>
         </div>
-        <p class="lead">오픈 이후 직접 운영하시면서 보내주신 이야기입니다.</p>
+        <p class="lead">직접 의뢰해 주신 분들이 남겨 주신 이야기입니다.<br><span class="rv__src">{source.label} · 평점 {source.rating} · 후기 {source.count}건</span></p>
       </div>
     </div>
 
