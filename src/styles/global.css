@@ -879,3 +879,15 @@ h1,h2,h3,h4,.h1,.h2,.h3{word-break:keep-all;text-wrap:balance}
   .hwf__col ul{text-align:left}
 }
 @media (prefers-reduced-motion:reduce){ .hwf__col a,.hwf__up{transition:none} }
+
+/* ===== 핵심 메시지 띠: 하프톤 워드마크 위에 메시지 ===== */
+.band--hwf{position:relative;overflow:hidden;background:#0A0E18;
+  padding:clamp(120px,14vw,190px) 0 clamp(150px,17vw,230px)}
+.band--hwf .hwf__canvas{position:absolute;inset:0;width:100%;height:100%;display:block;max-width:none}
+.band--hwf .inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;
+  pointer-events:none}
+.band--hwf .inner > *{pointer-events:auto}
+.band--hwf p{text-shadow:0 4px 34px rgba(8,11,20,.92),0 1px 3px rgba(8,11,20,.9)}
+.band__hint{margin-top:26px;font-size:12px;letter-spacing:.1em;color:rgba(255,255,255,.3)}
+@media (hover:none){ .band__hint{display:none} }
+@media (max-width:640px){ .band--hwf{padding:clamp(96px,16vw,130px) 0 clamp(120px,22vw,170px)} }

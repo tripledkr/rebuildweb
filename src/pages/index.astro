@@ -167,11 +167,23 @@ const schema = [
 
 
   <!-- 전환 띠 -->
-  <section class="band band--photo sec--lift" aria-label="핵심 메시지">
-    <div class="band__bg" aria-hidden="true"></div>
+  <section
+    class="band band--hwf sec--lift"
+    aria-label="핵심 메시지"
+    data-halftone
+    data-word="rebuild"
+    data-bg="#0A0E18"
+    data-ink="#D9DCE4"
+    data-warm="#5A7DFF"
+    data-gap="7"
+    data-crop="0.3"
+    data-radius="110"
+  >
+    <canvas class="hwf__canvas" aria-hidden="true"></canvas>
     <div class="inner">
       <p>방문자는 홈페이지를 <em>3초</em> 동안 봅니다.<br>그 3초가 회사의 인상을 결정합니다.</p>
       <a class="btn band__cta" href="#contact">무료 리뉴얼 상담 →</a>
+      <span class="band__hint" aria-hidden="true">점 위로 마우스를 움직여 보세요</span>
     </div>
   </section>
 
