@@ -989,3 +989,33 @@ h1,h2,h3,h4,.h1,.h2,.h3{word-break:keep-all;text-wrap:balance}
 }
 /* 이전 가로 바 스타일 잔재 제거 */
 .steps li::after,.steps.is-in li::after{width:9px;height:9px;background:none;transition:none}
+
+/* ===== 고객 후기: 양방향 마키 ===== */
+.rv{overflow:hidden}
+.rv__rail{margin-top:66px;display:grid;gap:20px;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+.rv__row{overflow:hidden}
+.rv__track{display:flex;gap:20px;width:max-content;
+  animation:rvScroll 58s linear infinite}
+.rv__row--rev .rv__track{animation-direction:reverse}
+.rv__rail:hover .rv__track{animation-play-state:paused}
+@keyframes rvScroll{ from{transform:translate3d(0,0,0)} to{transform:translate3d(-50%,0,0)} }
+.rv__card{flex:0 0 clamp(282px,25vw,352px);margin:0;padding:26px 26px 28px;
+  background:#fff;border:1px solid #E7E6E1;border-radius:14px}
+.rv__who{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.rv__ava{width:38px;height:38px;flex:0 0 38px;border-radius:50%;
+  background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;
+  font-size:16px;font-weight:700}
+.rv__meta{display:flex;flex-direction:column;min-width:0}
+.rv__meta b{font-size:15px;font-weight:700;letter-spacing:-.015em;color:#111}
+.rv__meta span{font-size:13px;color:#8E8E92;margin-top:2px}
+.rv__txt{margin:0;font-size:15.5px;line-height:1.78;letter-spacing:-.01em;color:#4C4C51}
+@media (max-width:640px){
+  .rv__rail{margin-top:46px}
+  .rv__card{flex-basis:276px;padding:22px}
+}
+@media (prefers-reduced-motion:reduce){
+  .rv__track{animation:none}
+  .rv__row{overflow-x:auto}
+}
