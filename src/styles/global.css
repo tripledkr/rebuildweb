@@ -1101,3 +1101,14 @@ h1,h2,h3,h4,.h1,.h2,.h3{word-break:keep-all;text-wrap:balance}
   .bento__t{min-height:200px;padding:22px}
 }
 @media (prefers-reduced-motion:reduce){ .bento__t,.bento__t::before{transition:none} }
+
+/* ===== 수치 띠: 구분선 제거, 상하 여백 균형 ===== */
+.statbar__in{border-top:0 !important;padding:0 !important}
+.statbar li{padding:0 16px !important}
+.statbar{padding:clamp(64px,6.4vw,88px) 0}
+.statbar__note{margin-top:clamp(34px,3.4vw,44px)}
+@media (max-width:640px){
+  .statbar{padding:clamp(50px,8.5vw,66px) 0}
+  .statbar li{padding:0 !important}
+  .statbar__note{margin-top:26px}
+}
