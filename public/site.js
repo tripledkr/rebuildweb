@@ -416,3 +416,55 @@
   }, { threshold: 0.4 });
   [].forEach.call(heads, function (h) { io.observe(h); });
 })();
+
+/* 체크 섹션 리본: 스크롤에 따라 가로로 흐름 */
+(function () {
+  var el = document.querySelector('[data-ribbon]');
+  if (!el) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var sec = el.closest('section');
+  var cur = 0, target = 0, raf = null;
+  function tick() {
+    cur += (target - cur) * 0.08;
+    el.style.transform = 'translate(calc(-50% + ' + cur.toFixed(1) + 'px), -50%) rotate(' + (cur * 0.004).toFixed(3) + 'deg)';
+    if (Math.abs(target - cur) < 0.3) { raf = null; return; }
+    raf = requestAnimationFrame(tick);
+  }
+  function measure() {
+    var r = sec.getBoundingClientRect();
+    var p = (window.innerHeight - r.top) / (window.innerHeight + r.height); // 0~1
+    target = (Math.max(0, Math.min(1, p)) - 0.5) * 260; // -130 ~ 130px
+    if (raf === null) raf = requestAnimationFrame(tick);
+  }
+  window.addEventListener('scroll', measure, { passive: true });
+  window.addEventListener('resize', measure);
+  measure();
+})();
+
+/* 히어로 오브: 마우스를 따라 부드럽게 끌림 */
+(function () {
+  var hero = document.querySelector('.hero--dark');
+  var orb = hero && hero.querySelector('.hero__orb');
+  if (!hero || !orb) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.matchMedia('(hover: none)').matches) return;
+  var cx = 0, cy = 0, tx = 0, ty = 0, raf = null;
+  function tick() {
+    cx += (tx - cx) * 0.055;
+    cy += (ty - cy) * 0.055;
+    orb.style.marginLeft = cx.toFixed(1) + 'px';
+    orb.style.marginTop = cy.toFixed(1) + 'px';
+    if (Math.abs(tx - cx) < 0.4 && Math.abs(ty - cy) < 0.4) { raf = null; return; }
+    raf = requestAnimationFrame(tick);
+  }
+  hero.addEventListener('pointermove', function (e) {
+    var r = hero.getBoundingClientRect();
+    tx = ((e.clientX - r.left) / r.width - 0.5) * 320;
+    ty = ((e.clientY - r.top) / r.height - 0.5) * 200;
+    if (raf === null) raf = requestAnimationFrame(tick);
+  });
+  hero.addEventListener('pointerleave', function () {
+    tx = 0; ty = 0;
+    if (raf === null) raf = requestAnimationFrame(tick);
+  });
+})();
