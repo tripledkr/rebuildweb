@@ -1746,7 +1746,7 @@ html,body{background:#0B0E15;color:var(--ink)}
    ================================================================ */
 .gal{position:relative;margin:clamp(36px,4vw,56px) 0 clamp(8px,1vw,16px);
   min-height:clamp(560px,84svh,760px);display:grid;place-items:center;
-  perspective:1100px;perspective-origin:50% 50%}
+  overflow:clip;perspective:1100px;perspective-origin:50% 50%}
 /* 중앙 문장이 어떤 카드 위에서도 읽히도록 — 가운데만 눌러주는 스크림 */
 .gal::after{content:'';position:absolute;left:50%;top:50%;width:min(760px,86%);height:min(430px,62%);
   transform:translate(-50%,-50%);z-index:1;pointer-events:none;
