@@ -11,7 +11,11 @@ interface Props {
   schema?: object | object[];
 }
 const { title, description, type = 'website', schema } = Astro.props;
-const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', site.url).href;
+const canonicalPath = Astro.url.pathname
+  .replace(/index\.html$/, '')   // build format:'file' 로 생기는 /index.html 제거
+  .replace(/\.html$/, '')        // /privacy.html → /privacy
+  .replace(/\/+$/, '') || '/';
+const canonical = new URL(canonicalPath, site.url).href;
 const ogImage = new URL('/og.png', site.url).href;
 const schemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 ---

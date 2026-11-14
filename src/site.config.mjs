@@ -2,7 +2,7 @@
 export default {
   name: '리빌드웹',
   logo: 'REBUILDWEB', // 헤더·푸터에 보이는 로고 표기
-  url: 'https://rebuildweb.vercel.app', // 실제 도메인으로 교체
+  url: 'https://rebuildweb.kr',
   keyword: '기업 홈페이지 리뉴얼',
   theme: {
     accent: '#3182F6', // TDS blue-600 (버튼·링크 기준색)
