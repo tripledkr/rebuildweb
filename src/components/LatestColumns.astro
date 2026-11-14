@@ -20,6 +20,7 @@ const { title } = Astro.props;
           <li>
             <a class="plist__a" href={`/columns/${p.id}`}>
               <span class="plist__n">{String(i + 1).padStart(2, '0')}</span>
+              {p.data.cover && <span class="plist__thumb"><img src={p.data.cover} width="240" height="150" alt="" loading="lazy" decoding="async" /></span>}
               <span class="plist__body">
                 <span class="plist__cat">{p.data.category}</span>
                 <h3 class="plist__t">{p.data.title}</h3>

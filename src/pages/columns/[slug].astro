@@ -47,6 +47,11 @@ const others = posts.filter((p) => p.id !== post.id)
         </p>
       </div>
     </header>
+    {d.cover && (
+      <div class="inner inner--narrow">
+        <figure class="article__cover"><img src={d.cover} width="1200" height="750" alt="" loading="eager" decoding="async" /></figure>
+      </div>
+    )}
     <div class="inner inner--narrow prose"><Content /></div>
     <aside class="inner inner--narrow">
       <div class="article__cta">

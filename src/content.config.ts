@@ -12,6 +12,7 @@ const columns = defineCollection({
     category: z.string(),
     date: z.coerce.date(),
     updated: z.coerce.date().optional(),
+    cover: z.string().optional(),   // /xxx.webp — 목록 썸네일 및 본문 상단 이미지
     draft: z.boolean().default(false), // true면 배포되지 않음
   }),
 });
