@@ -1268,14 +1268,7 @@ html{overflow-x:clip}
   .compare td.is-good::before{content:'리뉴얼 후';color:var(--accent)}
 }
 
-/* ===== 모바일: 하프톤 띠는 정적 배경으로 ===== */
-@media (max-width:900px){
-  .band--hwf .hwf__canvas{display:none}
-  .band--hwf{background:
-    radial-gradient(760px 420px at 70% 18%, rgba(42,72,170,.4), transparent 62%),
-    linear-gradient(170deg,#0B0F1A,#080B14)}
-  .band--hwf p{text-shadow:none}
-}
+/* 모바일에서도 하프톤 워드마크 표시 (점 밀도는 halftone.js가 폭에 맞춰 조절) */
 @media (max-width:900px){ .band--hwf{padding:clamp(80px,14vw,104px) 0} }
 @media (max-width:640px){ .br-pc{display:none} }
 @media (max-width:640px){
@@ -1469,7 +1462,7 @@ html{overflow-x:clip}
 .h2,.cv__h,.article__title{font-size:clamp(27px,3.3vw,48px);line-height:1.28;letter-spacing:-.02em}
 .cv__h{margin-top:16px}
 /* 다크 포커스 밴드(3초): 토스 다크 서브헤드 32/700/1.4 */
-.band p{font-size:clamp(22px,2.3vw,32px);line-height:1.4;letter-spacing:-.02em}
+.band p{font-size:clamp(23px,3vw,42px);line-height:1.35;letter-spacing:-.02em}
 /* T3 소제목: 블록 타이틀 20 / 리스트·카드 타이틀 17~18 */
 .bento__h,.plist__t,.cv__list li b{font-size:clamp(17px,1.4vw,20px);line-height:1.45;letter-spacing:-.02em}
 .faq summary{font-size:18px;letter-spacing:-.02em}
@@ -1536,3 +1529,5 @@ html{overflow-x:clip}
   .steps li::before{top:4px;left:-5.25px}
   .steps li::after{top:4px;left:-5.25px}
 }
+/* 3초 밴드: 모바일 균형 줄바꿈 */
+@media (max-width:640px){ .band p{text-wrap:balance} }

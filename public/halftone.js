@@ -39,6 +39,7 @@
       canvas.width = Math.round(w * dpr);
       canvas.height = Math.round(h * dpr);
 
+      var g = w < 760 ? Math.max(3, Math.round(gap * w / 1100)) : gap;
       var mask = document.createElement('canvas');
       mask.width = w; mask.height = h;
       var m = mask.getContext('2d', { willReadFrequently: true });
@@ -54,21 +55,21 @@
       m.fillText(word, (w - box.width) / 2, h + cap * crop);
       var img = m.getImageData(0, 0, w, h).data;
 
-      var cols = Math.ceil(w / gap), rows = Math.ceil(h / gap), tmp = [];
+      var cols = Math.ceil(w / g), rows = Math.ceil(h / g), tmp = [];
       for (var gy = 0; gy < rows; gy++) {
         for (var gx = 0; gx < cols; gx++) {
           var sum = 0;
           for (var sy = 0; sy < 3; sy++) {
             for (var sx = 0; sx < 3; sx++) {
-              var x = Math.min(w - 1, Math.floor(gx * gap + ((sx + 0.5) * gap) / 3));
-              var y = Math.min(h - 1, Math.floor(gy * gap + ((sy + 0.5) * gap) / 3));
+              var x = Math.min(w - 1, Math.floor(gx * g + ((sx + 0.5) * g) / 3));
+              var y = Math.min(h - 1, Math.floor(gy * g + ((sy + 0.5) * g) / 3));
               sum += img[(y * w + x) * 4 + 3];
             }
           }
           var cov = sum / (9 * 255);
           if (cov < 0.06) continue;
-          var hx = gx * gap + gap / 2, hy = gy * gap + gap / 2;
-          tmp.push(hx, hy, 0, 0, hx, hy, Math.sqrt(cov) * gap * 0.56);
+          var hx = gx * g + g / 2, hy = gy * g + g / 2;
+          tmp.push(hx, hy, 0, 0, hx, hy, Math.sqrt(cov) * g * 0.56);
         }
       }
       dots = new Float32Array(tmp);
