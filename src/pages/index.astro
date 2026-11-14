@@ -8,7 +8,7 @@ import FlowStage from '../components/FlowStage.astro';
 import site from '../site.config.mjs';
 
 const faqs = [
-  { q: '기업 홈페이지 리뉴얼은 보통 얼마나 걸리나요?', a: '상담부터 오픈까지 6주를 기준으로 진행합니다. 자료 준비 상황과 페이지 수에 따라 일정은 조정될 수 있습니다.' },
+  { q: '기업 홈페이지 리뉴얼은 보통 얼마나 걸리나요?', a: '상담부터 오픈까지 2주를 기준으로 진행합니다. 자료 준비 상황과 페이지 수에 따라 일정은 조정될 수 있습니다.' },
   { q: '기존 홈페이지 내용을 그대로 옮길 수 있나요?', a: '기존 내용을 먼저 검토해서 살릴 내용과 새로 써야 할 내용을 나눕니다. 필요한 내용은 옮기고, 오래된 정보는 정리합니다.' },
   { q: '자료가 하나도 정리되어 있지 않은데 괜찮을까요?', a: '괜찮습니다. 회사소개서, 제안서, 사진처럼 가지고 계신 자료를 그대로 보내주시면 메뉴 구조와 페이지별 내용으로 정리하는 것부터 함께 진행합니다.' },
   { q: '리뉴얼 후에 회사에서 직접 수정할 수 있나요?', a: '관리자 페이지를 제공하고, 오픈할 때 1:1로 수정 방법을 안내합니다. 문구와 이미지 정도는 담당자가 직접 바꿀 수 있습니다.' },
@@ -32,8 +32,8 @@ const schema = [
 ];
 ---
 <Base
-  title="기업 홈페이지 리뉴얼 | 오래된 회사 홈페이지, 6주 만에 새로 - 리빌드웹"
-  description="회사는 성장했는데 홈페이지는 그대로인가요? 리빌드웹은 흩어진 자료 정리부터 구조 설계, 디자인, 모바일 반응형, 운영 교육까지 기업 홈페이지 리뉴얼을 6주 동안 진행합니다."
+  title="기업 홈페이지 리뉴얼 | 오래된 회사 홈페이지, 2주 만에 새로 - 리빌드웹"
+  description="회사는 성장했는데 홈페이지는 그대로인가요? 리빌드웹은 흩어진 자료 정리부터 구조 설계, 디자인, 모바일 반응형, 운영 교육까지 기업 홈페이지 리뉴얼을 2주 동안 진행합니다."
   schema={schema}
 >
   <!-- 히어로 → 전환 구간 (아래에서 위로 걷히는 덮기) -->
@@ -47,7 +47,7 @@ const schema = [
       <div class="inner hero__grid">
         <div class="hero__copy">
         <p class="hero__kw" data-reveal>기업 홈페이지 리뉴얼</p>
-        <h1 class="h1" data-reveal>오래된 회사 홈페이지,<br>6주 만에 다시 짓습니다.</h1>
+        <h1 class="h1" data-reveal>오래된 회사 홈페이지,<br>2주 만에 다시 짓습니다.</h1>
         <p class="lead" data-reveal>회사는 성장했는데 홈페이지는 몇 년 전 그대로인가요? 리빌드웹은 흩어진 자료 정리부터 디자인, 개발, 운영 교육까지 기업 홈페이지 리뉴얼을 한 번에 진행합니다.</p>
         <div class="hero__btns" data-reveal>
           <a class="btn" href="#contact">무료 리뉴얼 상담 →</a>
@@ -59,7 +59,7 @@ const schema = [
           <figcaption>설계 방식을 보여주는 예시 화면입니다</figcaption>
         </figure>
         <ul class="hero__points" data-reveal-group>
-          <li><strong>6주 완성</strong><span>상담부터 오픈까지 정해진 일정</span></li>
+          <li><strong>2주 완성</strong><span>상담부터 오픈까지 정해진 일정</span></li>
           <li><strong>자료 정리부터</strong><span>뒤섞인 자료도 구조로 정리</span></li>
           <li><strong>직접 운영 교육</strong><span>오픈 후 회사에서 바로 수정</span></li>
         </ul>
@@ -85,7 +85,7 @@ const schema = [
   <section class="statbar" aria-label="주요 수치">
     <div class="inner">
       <ul class="statbar__in">
-        <li data-reveal><strong><span class="num" data-count="100">100</span><small>+</small></strong><span>운영 관리 중인 사이트</span></li>
+        <li data-reveal><strong><span class="num" data-count="100">100</span><small>+</small></strong><span>누적 프로젝트</span></li>
         <li data-reveal><strong><span class="num" data-count="2">2</span><small>주</small></strong><span>상담부터 오픈까지</span></li>
         <li data-reveal><strong><span class="num" data-count="2">2</span><small>개월</small></strong><span>오픈 후 무상 케어</span></li>
       </ul>
@@ -204,7 +204,7 @@ const schema = [
     <div class="inner">
       <div class="head" data-reveal>
         <p class="label">PROCESS</p>
-        <h2 id="process-title" class="h2">기업 홈페이지 리뉴얼,<br>6주 동안 이렇게 진행됩니다.</h2>
+        <h2 id="process-title" class="h2">기업 홈페이지 리뉴얼,<br>2주 동안 이렇게 진행됩니다.</h2>
         <span class="head__en">Six weeks, step by step</span>
       </div>
       <ol class="steps">
