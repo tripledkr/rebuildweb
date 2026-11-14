@@ -964,3 +964,32 @@ h1,h2,h3,h4,.h1,.h2,.h3{word-break:keep-all;text-wrap:balance}
 .statbar li{padding:clamp(26px,2.6vw,34px) 16px 0 !important}
 .statbar__note{margin-top:clamp(30px,3vw,40px)}
 @media (max-width:640px){ .statbar{padding:clamp(52px,9vw,70px) 0} .statbar__note{margin-top:26px} }
+
+/* ===== 진행 과정 도트: 순차 박동 ===== */
+@keyframes dotBeat{
+  0%,100%{transform:scale(1)}
+  5%{transform:scale(1.62)}
+  13%{transform:scale(.94)}
+  19%{transform:scale(1)}
+}
+@keyframes dotRing{
+  0%{transform:scale(1);opacity:.7}
+  22%{transform:scale(3.6);opacity:0}
+  100%{transform:scale(3.6);opacity:0}
+}
+.steps.is-in li::before{animation:dotBeat 3s cubic-bezier(.34,1.3,.5,1) infinite}
+.steps li::after{content:'';display:block;position:absolute;top:-4px;left:0;
+  width:9px;height:9px;border-radius:50%;border:1.5px solid var(--accent);
+  opacity:0;pointer-events:none}
+.steps.is-in li::after{animation:dotRing 3s ease-out infinite}
+.steps.is-in li:nth-child(1)::before,.steps.is-in li:nth-child(1)::after{animation-delay:1.7s}
+.steps.is-in li:nth-child(2)::before,.steps.is-in li:nth-child(2)::after{animation-delay:1.92s}
+.steps.is-in li:nth-child(3)::before,.steps.is-in li:nth-child(3)::after{animation-delay:2.14s}
+.steps.is-in li:nth-child(4)::before,.steps.is-in li:nth-child(4)::after{animation-delay:2.36s}
+.steps.is-in li:nth-child(5)::before,.steps.is-in li:nth-child(5)::after{animation-delay:2.58s}
+@media (prefers-reduced-motion:reduce){
+  .steps.is-in li::before,.steps.is-in li::after{animation:none}
+  .steps li::after{display:none}
+}
+/* 이전 가로 바 스타일 잔재 제거 */
+.steps li::after,.steps.is-in li::after{width:9px;height:9px;background:none;transition:none}
