@@ -1569,3 +1569,5 @@ html{overflow-x:clip}
 .contact__item--kakao span{color:#5A96D8}
 .contact__item--kakao strong,.contact__item--kakao em{color:#1C1F25}
 .contact__item--kakao em{color:#727780}
+/* 왓체인지: 헤드 → 비포 이미지 사이 간격 절반 (핀 중 상단 패딩은 유지해 네비와 안 겹침) */
+@media (min-width:761px){ .wipe-pin{margin-top:-84px} }
