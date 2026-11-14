@@ -1310,9 +1310,9 @@ html{overflow-x:clip}
 @media (max-width:640px){
   /* M1 — 섹션 상하 통일 */
   .sec,.sec--lift,.sec--soft,.sec--dark,.bento{padding-top:72px !important;padding-bottom:72px !important}
-  .statbar{padding-top:36px !important;padding-bottom:48px !important}
+  .statbar{padding-top:28px !important;padding-bottom:48px !important}
   .band,.band--photo,.band--hwf{padding-top:72px !important;padding-bottom:72px !important}
-  .cv__b-stage{padding-top:44px !important;padding-bottom:40px !important}
+  .cv__b-stage{padding-top:44px !important;padding-bottom:32px !important}
 
   /* M2 · M3 — 라벨/제목/리드 */
   .label{margin-bottom:10px}
@@ -1522,4 +1522,19 @@ html{overflow-x:clip}
   /* 한글 줄바꿈: 리드·노트류 균형 줄바꿈 */
   .lead,.split__note,.ba__note,.head .lead{text-wrap:balance}
   .cv__list li span{text-wrap:balance}
+}
+
+/* 모바일 보강 3: 더갭 유령 여백 제거 + 진행 과정 세로 타임라인 */
+@media (max-width:640px){
+  /* CTA 아래 62px 유령 공간의 원인이던 min-height 해제 */
+  .cv__b-in{min-height:0}
+  /* 진행 과정: 가로 막대 → 글자 앞 세로 레일 + 도트 (레일은 li별 좌측 보더,
+     마지막 스텝에서 끊겨 도트에서 끝남) */
+  .steps{position:relative;row-gap:0 !important}
+  .steps::before,.steps::after{display:none}
+  .steps li{border-top:0 !important;margin-left:4px;padding:0 0 36px 26px !important;
+    border-left:1.5px solid rgba(255,255,255,.18)}
+  .steps li:last-child{border-left-color:transparent;padding-bottom:0 !important}
+  .steps li::before{top:4px;left:-5.25px}
+  .steps li::after{top:4px;left:-5.25px}
 }
