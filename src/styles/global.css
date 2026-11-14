@@ -1283,3 +1283,79 @@ html{overflow-x:clip}
   .statbar li{text-align:left}
   .statbar strong{justify-content:flex-start}
 }
+
+/* ================================================================
+   간격 시스템 — 이 블록이 최종 기준. 섹션 간격은 여기서만 고친다.
+   [데스크탑 >640px]
+     D1 섹션 상하     clamp(100px,10.5vw,160px)
+     D2 라벨→제목     16px
+     D3 제목→리드     16px
+     D4 헤드→본문     clamp(48px,5vw,72px)
+   [모바일 ≤640px]
+     M1 섹션 상하     72px (모든 일반 섹션 동일)
+     M2 라벨→제목     10px
+     M3 제목→리드     14px
+     M4 헤드→본문     36px
+     M5 본문 블록 간  24px
+     M6 히어로        상 48 / 하 56, 리드→버튼 24, 버튼→목업 32
+     M7 버튼 2개 가로 1열, 히어로 포인트 3개 가로 1열
+   ================================================================ */
+.label{margin-bottom:16px}
+.head--split{row-gap:0}
+.head--split .lead{margin-top:16px}
+.lbl-mo{display:none}
+
+@media (max-width:640px){
+  /* M1 — 섹션 상하 통일 */
+  .sec,.sec--lift,.sec--soft,.sec--dark,.bento{padding-top:72px !important;padding-bottom:72px !important}
+  .statbar{padding-top:56px !important;padding-bottom:56px !important}
+  .band,.band--photo,.band--hwf{padding-top:72px !important;padding-bottom:72px !important}
+  .cv__b-stage{padding-top:64px !important;padding-bottom:64px !important}
+
+  /* M2 · M3 — 라벨/제목/리드 */
+  .label{margin-bottom:10px}
+  .head{margin-bottom:36px}
+  .head--split{gap:0}
+  .head--split .lead,.lead{margin-top:14px}
+  .cv__b-in .label{margin-bottom:10px}
+  .cv__h{margin:0}
+  .cv__list{margin-top:24px}
+  .cv__list li{padding:14px 0}
+  .cv__sub{margin-top:22px}
+  .cv__cta{margin-top:24px}
+  .cv__cards{margin-top:28px}
+
+  /* M4 · M5 — 본문 블록 */
+  .grid6,.spine,.signs,.vs,.rv__rail,.rv2__grid,.bento__grid{margin-top:36px !important}
+  .split{row-gap:32px}
+  .split__note{margin-top:18px}
+  .signs__result{margin-top:24px}
+  .plist__more{margin-top:28px}
+  .statbar__note{margin-top:24px}
+  .ba__note{margin:14px 0 0}
+  .wipe__caps{margin-top:16px}
+
+  /* M6 — 히어로 */
+  .hero{padding-top:48px !important;padding-bottom:56px !important;min-height:auto !important}
+  .hero__kw{margin-bottom:14px}
+  .hero .h1{margin:0}
+  .hero .lead{margin-top:14px}
+  .hero__btns{margin-top:24px}
+  .hero__shot{margin-top:32px}
+  .hero__shot figcaption{margin-top:10px;font-size:11.5px}
+  .cv__a-stage .hero__points,.hero__points{margin-top:28px;padding-top:22px}
+
+  /* M7 — 버튼 가로 1열 */
+  .hero__btns{flex-direction:row !important;align-items:stretch;gap:10px}
+  .hero__btns .btn{flex:1 1 0;width:auto !important;justify-content:center;
+    padding:13px 8px;font-size:13.5px;white-space:nowrap}
+  .lbl-pc{display:none}
+  .lbl-mo{display:inline}
+
+  /* M7 — 히어로 포인트 가로 1열 */
+  .hero__points{display:grid !important;grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    gap:0 14px}
+  .hero__points li{padding:0}
+  .hero__points strong{font-size:13.5px;letter-spacing:-.02em;margin-bottom:5px}
+  .hero__points span{font-size:11.5px;line-height:1.5;display:block}
+}
