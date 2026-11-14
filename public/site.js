@@ -468,3 +468,39 @@
     if (raf === null) raf = requestAnimationFrame(tick);
   });
 })();
+
+/* 자석 버튼 — 커서가 가까우면 버튼이 끌려오고, 멀어지면 제자리로 */
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.matchMedia('(hover: none)').matches) return;
+  var R = 78, PULL = 0.16;
+  var btns = [].slice.call(document.querySelectorAll('.btn'));
+  if (!btns.length) return;
+  var state = btns.map(function (b) { return { el: b, x: 0, y: 0, tx: 0, ty: 0 }; });
+  var raf = null;
+  function tick() {
+    var moving = false;
+    for (var i = 0; i < state.length; i++) {
+      var s = state[i];
+      s.x += (s.tx - s.x) * 0.16;
+      s.y += (s.ty - s.y) * 0.16;
+      if (Math.abs(s.tx - s.x) > 0.1 || Math.abs(s.ty - s.y) > 0.1) moving = true;
+      s.el.style.transform = (Math.abs(s.x) < 0.1 && Math.abs(s.y) < 0.1)
+        ? '' : 'translate(' + s.x.toFixed(2) + 'px,' + s.y.toFixed(2) + 'px)';
+    }
+    raf = moving ? requestAnimationFrame(tick) : null;
+  }
+  window.addEventListener('pointermove', function (e) {
+    for (var i = 0; i < state.length; i++) {
+      var s = state[i];
+      var r = s.el.getBoundingClientRect();
+      if (r.width === 0 || r.bottom < -R || r.top > window.innerHeight + R) { s.tx = 0; s.ty = 0; continue; }
+      var dx = e.clientX - (r.left + r.width / 2);
+      var dy = e.clientY - (r.top + r.height / 2);
+      var d = Math.sqrt(dx * dx + dy * dy);
+      if (d < R + r.width / 2) { s.tx = dx * PULL; s.ty = dy * PULL; }
+      else { s.tx = 0; s.ty = 0; }
+    }
+    if (raf === null) raf = requestAnimationFrame(tick);
+  }, { passive: true });
+})();

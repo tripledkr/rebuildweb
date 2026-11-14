@@ -1686,3 +1686,28 @@ html,body{background:#0B0E15;color:var(--ink)}
 .ribbon svg{width:100%;height:100%;display:block;filter:blur(2px)}
 @media (max-width:760px){ .ribbon{width:260vw;opacity:.38} }
 @media (prefers-reduced-motion:reduce){ .ribbon{transform:translate(-50%,-50%) !important} }
+
+/* ================================================================
+   모션 엔진: WebGL 유체 히어로 · 자석 버튼
+   ================================================================ */
+.hero__fluid{position:absolute;inset:0;width:100%;height:100%;z-index:-2;display:block;
+  opacity:0;transition:opacity 1.2s ease;pointer-events:none}
+.hero__fluid.is-live{opacity:1}
+/* 셰이더가 뜨면 CSS 대체 배경은 비킨다 */
+.hero__fluid.is-live ~ .hero__grad,.hero__fluid.is-live ~ .hero__orb{opacity:0}
+.hero--dark:has(.hero__fluid.is-live) .hero__grad,
+.hero--dark:has(.hero__fluid.is-live) .hero__orb{opacity:0;transition:opacity 1.2s ease}
+@media (prefers-reduced-motion:reduce){ .hero__fluid{display:none} }
+
+/* 자석 버튼: 커서가 가까우면 살짝 끌려온다 */
+.btn{will-change:transform}
+@media (hover:none){ .btn{will-change:auto} }
+/* 유체 위 카피 가독성: 좌측 스크림 */
+.hero--dark::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;isolation:isolate;
+  background:linear-gradient(100deg,rgba(7,10,18,.78) 0%,rgba(7,10,18,.52) 34%,rgba(7,10,18,.14) 62%,rgba(7,10,18,0) 100%)}
+@media (max-width:1080px){
+  .hero--dark::before{background:linear-gradient(180deg,rgba(7,10,18,.86),rgba(7,10,18,.72) 50%,rgba(7,10,18,.88))}
+}
+@media (max-width:640px){
+  .hero--dark::before{background:linear-gradient(180deg,rgba(7,10,18,.90),rgba(7,10,18,.80) 50%,rgba(7,10,18,.92))}
+}
