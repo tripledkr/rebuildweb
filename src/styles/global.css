@@ -465,8 +465,6 @@ body{letter-spacing:.006em}
 .btn,.td-more{letter-spacing:.002em}
 
 /* ===== 한글 제목 + 영문 부제 (루미네어·핀사이트 참고) ===== */
-.head__en{display:block;margin-top:14px;font-family:'Pretendard Variable',Pretendard,sans-serif;font-size:clamp(14px,1.2vw,17px);font-weight:500;font-style:italic;letter-spacing:.01em;color:#8A8A8A}
-.sec--dark .head__en,.flow .head__en{color:rgba(255,255,255,.45)}
 
 /* ===== 번호를 크게 (장식 요소로) ===== */
 .card__no{font-size:28px;font-weight:800;letter-spacing:-.02em;color:#D8D8D8;margin-bottom:28px}
@@ -569,8 +567,6 @@ body{letter-spacing:-.008em}
 .hero .lead{font-size:clamp(17px,1.45vw,21px)}
 .label{font-size:12px;font-weight:700;letter-spacing:.2em;margin-bottom:22px}
 .head{margin-bottom:84px}
-.head__en{display:block;margin-top:18px;font-size:14px;letter-spacing:.02em;color:#A0A0A6;font-weight:500}
-.sec--dark .head__en{color:rgba(255,255,255,.4)}
 .inner{max-width:1280px}
 
 /* 2. 섹션 리듬 */
