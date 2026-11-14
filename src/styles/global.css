@@ -1221,3 +1221,65 @@ body{color:var(--ink);letter-spacing:-.02em;line-height:1.6}
 /* sticky 가 동작하도록 clip 으로 (hidden 은 스크롤 컨테이너를 만들어 sticky 를 무력화) */
 .sec--lift{overflow:clip}
 html{overflow-x:clip}
+
+/* ===== 모바일: 히어로 2단 그리드 해제, 커튼 전환 비활성 ===== */
+@media (max-width:900px){
+  /* 커튼은 데스크탑 전용 — 모바일에서는 일반 섹션처럼 흐르게 */
+  .cv__a{height:auto}
+  .cv__a-stage{position:static;height:auto;overflow:visible}
+  .cv__b{margin-top:0;height:auto;pointer-events:auto}
+  .cv__b-stage{position:static;height:auto;overflow:visible;
+    clip-path:none !important;padding:clamp(72px,12vw,96px) 0}
+  .cv__h em{color:var(--accent)}
+
+  .hero{min-height:auto;height:auto;
+    padding:clamp(92px,16vw,120px) 0 clamp(64px,11vw,88px)}
+  .hero__grid{grid-template-columns:1fr !important;gap:0}
+  .hero__copy,.hero__shot{grid-column:1 !important;max-width:none;width:100%}
+  .hero .h1{font-size:clamp(28px,8.4vw,36px);line-height:1.26}
+  .hero .lead{max-width:none;font-size:16.5px;line-height:1.65;margin-top:18px}
+  .hero__btns{display:flex;flex-direction:column;align-items:stretch;gap:10px;margin-top:28px}
+  .hero__btns .btn{width:100%;justify-content:center;white-space:nowrap}
+  .hero__shot{margin-top:38px}
+  .hero__shot img{width:100%}
+  .hero__scroll{display:none}
+  .hero__points{margin-top:36px}
+}
+/* 와이프 스테이지: 비율·최대폭은 데스크탑에서만 */
+@media (max-width:760px){
+  .wipe__stage{aspect-ratio:auto !important;max-width:100% !important;
+    overflow:visible !important;height:auto !important}
+  .wipe__img{position:static !important;height:auto !important;object-fit:fill}
+  .wipe__clip{position:static !important}
+}
+
+/* ===== 모바일: 비교표를 행 단위 카드로 ===== */
+@media (max-width:760px){
+  .table-wrap{overflow:visible}
+  .compare,.compare tbody,.compare tr,.compare th,.compare td{display:block;width:auto}
+  .compare thead{display:none}
+  .compare tr{padding:22px 0;border-bottom:1px solid #E4E2DC}
+  .compare tr:last-child{border-bottom:0}
+  .compare tbody th{padding:0 0 14px;width:auto;font-size:16.5px;font-weight:700;
+    color:var(--ink);letter-spacing:-.02em;border:0}
+  .compare td{position:relative;border:0;padding:5px 0 5px 86px;font-size:15.5px;line-height:1.6}
+  .compare td::before{content:'리뉴얼 전';position:absolute;left:0;top:5px;
+    font-size:12px;font-weight:800;letter-spacing:.06em;color:#A8A8A3}
+  .compare td.is-good::before{content:'리뉴얼 후';color:var(--accent)}
+}
+
+/* ===== 모바일: 하프톤 띠는 정적 배경으로 ===== */
+@media (max-width:900px){
+  .band--hwf .hwf__canvas{display:none}
+  .band--hwf{background:
+    radial-gradient(760px 420px at 70% 18%, rgba(42,72,170,.4), transparent 62%),
+    linear-gradient(170deg,#0B0F1A,#080B14)}
+  .band--hwf p{text-shadow:none}
+}
+@media (max-width:900px){ .band--hwf{padding:clamp(80px,14vw,104px) 0} }
+@media (max-width:640px){ .br-pc{display:none} }
+@media (max-width:640px){
+  .statbar__in{grid-template-columns:1fr;row-gap:28px}
+  .statbar li{text-align:left}
+  .statbar strong{justify-content:flex-start}
+}
