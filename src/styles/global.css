@@ -1359,3 +1359,55 @@ html{overflow-x:clip}
   .hero__points strong{font-size:13.5px;letter-spacing:-.02em;margin-bottom:5px}
   .hero__points span{font-size:11.5px;line-height:1.5;display:block}
 }
+
+/* ================================================================
+   정렬 시스템 — 이 블록이 최종 기준. 섹션 정렬은 여기서만 고친다.
+   A1 섹션 헤드(label+제목+리드)는 전부 중앙 정렬, 리드 max-width 620 중앙
+   A2 헤드 아래 본문 컨텐츠(체크리스트·결과카드)는 중앙 축에 맞춰 max-width 중앙 배치
+   A3 2단 인터랙션 섹션(THE GAP·THE POINT)은 데스크탑 2단 유지, 모바일에서 중앙
+   A4 수치(statbar)는 모든 폭에서 각 칸 중앙 정렬
+   A5 모바일 히어로는 중앙 정렬(버튼 가로 1열 유지)
+   ================================================================ */
+.head,.head--split{display:block;text-align:center}
+.head--split{grid-template-columns:none}
+.head .lead,.head--split .lead{margin-left:auto;margin-right:auto;max-width:620px}
+/* CHECK 섹션: 좌/우 분할 해제, 헤드 중앙 + 리스트 중앙 축 */
+.split{display:block}
+.split__l{position:static;text-align:center;max-width:680px;margin:0 auto clamp(40px,4.5vw,56px)}
+.signs{max-width:760px;margin-left:auto;margin-right:auto}
+.signs__result{max-width:760px;margin-left:auto;margin-right:auto}
+/* 수치 */
+.statbar li{text-align:center;padding-right:0}
+.statbar li>strong{justify-content:center}
+/* THE GAP: 데스크탑 2단 유지, 사진 카드는 그래픽 카드로 교체됨 */
+.cv__cards{background:#EDF1FB;box-shadow:0 24px 60px rgba(16,24,48,.14)}
+.cv__cards::after{background:none;border:1px solid rgba(31,63,209,.10);border-radius:16px}
+@media (max-width:980px){
+  .cv__cards{display:none}
+  .cv__b-in{text-align:center}
+  .cv__list li.is-on{padding-left:0}
+  .cv__cta{margin-left:auto;margin-right:auto}
+}
+/* FAQ·칼럼·후기·프로세스 헤드는 .head 규칙으로 중앙 처리됨 */
+@media (max-width:640px){
+  /* A5 모바일 히어로 중앙 */
+  .hero__copy{text-align:center}
+  .hero__kw{margin-left:auto;margin-right:auto}
+  .hero__points{text-align:center}
+  .hero__points li{align-items:center}
+  /* 체크 결과 카드 중앙 */
+  .signs__result{text-align:center}
+  .signs__count{justify-content:center}
+  .signs__cta{justify-self:center}
+  /* THE GAP 모바일 중앙 + 여백 정리 */
+  .cv__sub{margin-top:24px}
+  .cv__cta{margin-top:24px}
+}
+/* 정렬 시스템 보강: 결과 카드·칼럼 CTA 중앙 */
+.signs__result{grid-template-columns:auto auto auto;justify-content:center;text-align:center}
+.signs__result .signs__msg{text-align:left}
+.plist__more{text-align:center}
+@media (max-width:640px){
+  .signs__result{grid-template-columns:1fr;text-align:center}
+  .signs__result .signs__msg{text-align:center}
+}
