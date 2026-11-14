@@ -1690,24 +1690,53 @@ html,body{background:#0B0E15;color:var(--ink)}
 /* ================================================================
    모션 엔진: WebGL 유체 히어로 · 자석 버튼
    ================================================================ */
-.hero__fluid{position:absolute;inset:0;width:100%;height:100%;z-index:-2;display:block;
-  opacity:0;transition:opacity 1.2s ease;pointer-events:none}
-.hero__fluid.is-live{opacity:1}
-/* 셰이더가 뜨면 CSS 대체 배경은 비킨다 */
-.hero__fluid.is-live ~ .hero__grad,.hero__fluid.is-live ~ .hero__orb{opacity:0}
-.hero--dark:has(.hero__fluid.is-live) .hero__grad,
-.hero--dark:has(.hero__fluid.is-live) .hero__orb{opacity:0;transition:opacity 1.2s ease}
-@media (prefers-reduced-motion:reduce){ .hero__fluid{display:none} }
 
 /* 자석 버튼: 커서가 가까우면 살짝 끌려온다 */
 .btn{will-change:transform}
 @media (hover:none){ .btn{will-change:auto} }
-/* 유체 위 카피 가독성: 좌측 스크림 */
-.hero--dark::before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;isolation:isolate;
-  background:linear-gradient(100deg,rgba(7,10,18,.78) 0%,rgba(7,10,18,.52) 34%,rgba(7,10,18,.14) 62%,rgba(7,10,18,0) 100%)}
-@media (max-width:1080px){
-  .hero--dark::before{background:linear-gradient(180deg,rgba(7,10,18,.86),rgba(7,10,18,.72) 50%,rgba(7,10,18,.88))}
+
+/* ================================================================
+   작업 사례 — 행 리스트 + 커서 추종 미리보기
+   ================================================================ */
+.work{position:relative}
+.work__list{list-style:none;margin:clamp(48px,5vw,72px) 0 0;padding:0;
+  border-top:1px solid var(--line)}
+.work__row{position:relative;display:grid;align-items:center;
+  grid-template-columns:62px minmax(0,1.5fr) minmax(0,1.1fr) minmax(0,1.5fr) 72px;
+  gap:20px;padding:30px 4px;border-bottom:1px solid var(--line);
+  cursor:default;transition:opacity .35s ease,padding-left .4s cubic-bezier(.22,.8,.3,1)}
+.work__no{font-size:12px;font-weight:700;letter-spacing:.12em;color:#4A5366}
+.work__name{font-size:clamp(19px,1.9vw,26px);font-weight:700;letter-spacing:-.02em;color:#EEF2F9;
+  transition:color .3s}
+.work__field{font-size:14px;color:var(--muted)}
+.work__scope{font-size:14px;color:var(--muted)}
+.work__year{font-size:13px;color:#4A5366;text-align:right}
+.work__thumb{display:none}
+/* 호버: 나머지 행은 물러나고, 올린 행만 앞으로 */
+.work__list.is-peek .work__row{opacity:.3}
+.work__list.is-peek .work__row.is-on{opacity:1;padding-left:16px}
+.work__row.is-on .work__name{color:#7CB2F9}
+.work__note{margin-top:22px !important;text-align:left}
+
+/* 커서를 따라오는 미리보기 */
+.work__peek{position:fixed;left:0;top:0;z-index:15;margin:0;width:min(32vw,420px);
+  aspect-ratio:3/2;border-radius:14px;overflow:hidden;pointer-events:none;
+  opacity:0;visibility:hidden;transform:translate(-50%,-50%) scale(.92);
+  box-shadow:0 30px 80px rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.1)}
+.work__peek img{width:100%;height:100%;object-fit:cover;display:block}
+
+@media (max-width:900px){
+  .work__peek{display:none}
+  .work__row{grid-template-columns:44px minmax(0,1fr) 96px;
+    grid-template-areas:'no name thumb' '. field thumb' '. scope thumb' '. year thumb';
+    align-items:start;gap:4px 14px;padding:22px 0}
+  .work__no{grid-area:no} .work__name{grid-area:name}
+  .work__field{grid-area:field;margin-top:6px} .work__scope{grid-area:scope;font-size:13px}
+  .work__year{grid-area:year;text-align:left;margin-top:6px}
+  .work__thumb{grid-area:thumb;display:block;width:96px;height:64px;object-fit:cover;
+    border-radius:8px;border:1px solid rgba(255,255,255,.1);align-self:center}
+  .work__list.is-peek .work__row{opacity:1}
 }
-@media (max-width:640px){
-  .hero--dark::before{background:linear-gradient(180deg,rgba(7,10,18,.90),rgba(7,10,18,.80) 50%,rgba(7,10,18,.92))}
+@media (prefers-reduced-motion:reduce){
+  .work__row{transition:none} .work__peek{display:none}
 }

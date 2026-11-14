@@ -1,0 +1,112 @@
+---
+/* 작업 사례 — 행에 커서를 올리면 미리보기가 따라옵니다 (GSAP quickTo) */
+import { items, PLACEHOLDER } from '../data/portfolio.mjs';
+---
+{items.length > 0 && (
+  <section class="sec work" id="work" aria-labelledby="work-title">
+    <div class="inner">
+      <div class="head" data-reveal>
+        <p class="label">WORK</p>
+        <h2 id="work-title" class="h2">맡겨주신 홈페이지</h2>
+        <p class="lead">업종마다 보여줄 것이 다릅니다. 회사가 가진 것부터 정리한 뒤 화면을 설계했습니다.</p>
+      </div>
+
+      <ol class="work__list" data-work>
+        {items.map((it) => (
+          <li class="work__row" data-work-row data-cover={it.cover}>
+            <span class="work__no">{it.no}</span>
+            <span class="work__name">{it.name}</span>
+            <span class="work__field">{it.field}</span>
+            <span class="work__scope">{it.scope}</span>
+            <span class="work__year">{it.year}</span>
+            <img class="work__thumb" src={it.cover} width="1200" height="800" alt="" loading="lazy" decoding="async" />
+          </li>
+        ))}
+      </ol>
+
+      {PLACEHOLDER && (
+        <p class="ba__note work__note">화면은 업종별 설계 방식을 보여주는 예시이며, 실제 고객사 화면이 아닙니다.</p>
+      )}
+    </div>
+
+    <figure class="work__peek" data-work-peek aria-hidden="true">
+      <img data-work-peek-img src={items[0].cover} width="1200" height="800" alt="" loading="lazy" decoding="async" />
+    </figure>
+  </section>
+)}
+
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* Lenis ↔ ScrollTrigger 연결 — 없으면 트리거가 스크롤을 못 읽는다 */
+  function bindLenis() {
+    const l = window.__lenis;
+    if (l) { l.on('scroll', ScrollTrigger.update); return true; }
+    return false;
+  }
+  if (!bindLenis()) {
+    let n = 0;
+    const iv = setInterval(() => { if (bindLenis() || ++n > 40) clearInterval(iv); }, 50);
+  }
+  window.addEventListener('load', () => ScrollTrigger.refresh());
+
+  const list = document.querySelector('[data-work]');
+  const peek = document.querySelector('[data-work-peek]');
+  const peekImg = document.querySelector('[data-work-peek-img]');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* 행 등장 — 아래에서 밀려 올라오며 순차 */
+  if (list && !reduce) {
+    gsap.fromTo(
+      list.querySelectorAll('[data-work-row]'),
+      { yPercent: 60, opacity: 0 },
+      {
+        yPercent: 0,
+        opacity: 1,
+        duration: 0.9,
+        ease: 'power3.out',
+        stagger: 0.07,
+        scrollTrigger: { trigger: list, start: 'top 92%', once: true },
+      }
+    );
+  }
+
+  /* 호버 미리보기 — 커서를 부드럽게 따라옴 */
+  if (list && peek && peekImg && !reduce && window.matchMedia('(hover: hover)').matches) {
+    const xTo = gsap.quickTo(peek, 'x', { duration: 0.55, ease: 'power3' });
+    const yTo = gsap.quickTo(peek, 'y', { duration: 0.55, ease: 'power3' });
+    const rTo = gsap.quickTo(peek, 'rotate', { duration: 0.8, ease: 'power3' });
+    let last = 0, shown = false;
+
+    list.addEventListener('pointermove', (e) => {
+      xTo(e.clientX);
+      yTo(e.clientY);
+      const v = Math.max(-9, Math.min(9, (e.clientX - last) * 0.32));
+      rTo(v);
+      last = e.clientX;
+    });
+
+    list.querySelectorAll('[data-work-row]').forEach((row) => {
+      row.addEventListener('pointerenter', () => {
+        const src = row.getAttribute('data-cover');
+        if (src && peekImg.getAttribute('src') !== src) peekImg.setAttribute('src', src);
+        list.classList.add('is-peek');
+        row.classList.add('is-on');
+        if (!shown) {
+          shown = true;
+          gsap.to(peek, { autoAlpha: 1, scale: 1, duration: 0.45, ease: 'power3.out' });
+        }
+      });
+      row.addEventListener('pointerleave', () => row.classList.remove('is-on'));
+    });
+
+    list.addEventListener('pointerleave', () => {
+      shown = false;
+      list.classList.remove('is-peek');
+      gsap.to(peek, { autoAlpha: 0, scale: 0.92, duration: 0.3, ease: 'power2.in' });
+      rTo(0);
+    });
+  }
+</script>

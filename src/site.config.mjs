@@ -12,6 +12,7 @@ export default {
   nav: [
     { label: '리뉴얼 체크', href: '/#signs' },
     { label: '바뀌는 점', href: '/#scope' },
+    { label: '작업 사례', href: '/#work' },
     { label: '진행 과정', href: '/#process' },
     { label: '칼럼', href: '/columns' },
   ],
