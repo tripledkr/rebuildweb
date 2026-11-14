@@ -1,5 +1,5 @@
 ---
-/* 고객 후기 — 두 줄이 서로 반대 방향으로 흐르는 마키.
+/* 고객 후기 — 두 줄이 서로 반대 방향으로 끊김 없이 흐르는 마키.
    src/data/reviews.mjs 의 reviews 배열이 비어 있으면 섹션 자체가 렌더되지 않습니다. */
 import { reviews, placeholder, source } from '../data/reviews.mjs';
 
@@ -7,7 +7,16 @@ const PREVIEW = import.meta.env.REVIEW_PREVIEW === 'true';
 const items = reviews.length > 0 ? reviews : (PREVIEW ? placeholder : []);
 const rowA = items.filter((_, i) => i % 2 === 0);
 const rowB = items.filter((_, i) => i % 2 === 1);
-const initial = (s) => (s || '?').trim().charAt(0);
+
+/* 한 세트가 화면보다 충분히 넓어야 좌우에 빈 곳이 생기지 않습니다.
+   카드 폭 + 간격을 372px로 보고, 세트 폭이 2400px 이상이 되도록 반복합니다. */
+const fill = (arr) => {
+  if (arr.length === 0) return [];
+  const n = Math.max(2, Math.ceil(2400 / (arr.length * 372)));
+  return Array.from({ length: n }, () => arr).flat();
+};
+const setA = fill(rowA);
+const setB = fill(rowB);
 ---
 {items.length >= 4 && (
   <section class="sec sec--soft rv" id="reviews" aria-labelledby="rv-title">
@@ -22,32 +31,19 @@ const initial = (s) => (s || '?').trim().charAt(0);
     </div>
 
     <div class="rv__rail" data-reveal>
-      <div class="rv__row">
-        <div class="rv__track">
-          {[...rowA, ...rowA].map((r, i) => (
-            <figure class="rv__card" aria-hidden={i >= rowA.length ? 'true' : undefined}>
-              <figcaption class="rv__who">
-                <span class="rv__ava" aria-hidden="true">{initial(r.company)}</span>
-                <span class="rv__meta"><b>{r.company}</b><span>{r.name}</span></span>
-              </figcaption>
-              <blockquote class="rv__txt">{r.text}</blockquote>
-            </figure>
-          ))}
+      {[setA, setB].map((set, row) => (
+        <div class={`rv__row${row === 1 ? ' rv__row--rev' : ''}`}>
+          <div class="rv__track">
+            {[...set, ...set].map((r, i) => (
+              <figure class="rv__card" aria-hidden={i >= set.length ? 'true' : undefined}>
+                <p class="rv__stars" aria-label="별점 5점 만점에 5점"><span aria-hidden="true">★★★★★</span></p>
+                <blockquote class="rv__txt">{r.text}</blockquote>
+                <figcaption class="rv__who"><b>{r.name} 님</b><span>{r.company}</span></figcaption>
+              </figure>
+            ))}
+          </div>
         </div>
-      </div>
-      <div class="rv__row rv__row--rev">
-        <div class="rv__track">
-          {[...rowB, ...rowB].map((r, i) => (
-            <figure class="rv__card" aria-hidden={i >= rowB.length ? 'true' : undefined}>
-              <figcaption class="rv__who">
-                <span class="rv__ava" aria-hidden="true">{initial(r.company)}</span>
-                <span class="rv__meta"><b>{r.company}</b><span>{r.name}</span></span>
-              </figcaption>
-              <blockquote class="rv__txt">{r.text}</blockquote>
-            </figure>
-          ))}
-        </div>
-      </div>
+      ))}
     </div>
   </section>
 )}

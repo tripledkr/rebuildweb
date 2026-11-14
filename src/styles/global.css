@@ -1020,3 +1020,13 @@ h1,h2,h3,h4,.h1,.h2,.h3{word-break:keep-all;text-wrap:balance}
   .rv__row{overflow-x:auto}
 }
 .rv__src{display:inline-block;margin-top:12px;font-size:13.5px;letter-spacing:.01em;color:#9A9A95}
+
+/* ===== 후기 카드: 별점 + 이름 표기, 호버 정지 해제 ===== */
+.rv__rail:hover .rv__track{animation-play-state:running}
+.rv__stars{margin:0 0 14px;font-size:15px;letter-spacing:.14em;color:#F5A524;line-height:1}
+.rv__card{display:flex;flex-direction:column}
+.rv__txt{flex:1 0 auto}
+.rv__who{display:flex;align-items:baseline;gap:9px;margin:18px 0 0;padding-top:16px;
+  border-top:1px solid #EDECE8}
+.rv__who b{font-size:14.5px;font-weight:700;letter-spacing:-.01em;color:#111}
+.rv__who span{font-size:13px;color:#8E8E92}
