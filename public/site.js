@@ -360,13 +360,26 @@
     raf = requestAnimationFrame(tick);
   }
 
+  var pin = root.closest('[data-wipe-pin]');
+
   function measure() {
-    var r = stage.getBoundingClientRect();
-    // 섹션이 화면 아래 3/4 지점에 닿을 때 시작해 화면 위 1/4 지점에서 끝남
-    var start = window.innerHeight * 0.82;
-    var end = window.innerHeight * 0.22;
-    var t = (start - r.top) / (start - end);
-    target = ease(Math.max(0, Math.min(1, t)));
+    var t;
+    if (pin) {
+      // 섹션이 고정된 구간을 기준으로 진행도를 계산
+      var pr = pin.getBoundingClientRect();
+      var span = pin.offsetHeight - window.innerHeight;
+      if (span <= 0) { target = 1; }
+      else {
+        var raw = (-pr.top) / span;
+        // 앞뒤로 멈춰 있는 구간을 두어 전환이 급하지 않게
+        t = (raw - 0.14) / 0.72;
+        target = ease(Math.max(0, Math.min(1, t)));
+      }
+    } else {
+      var r = stage.getBoundingClientRect();
+      t = (window.innerHeight * 0.82 - r.top) / (window.innerHeight * 0.6);
+      target = ease(Math.max(0, Math.min(1, t)));
+    }
     if (raf === null) raf = requestAnimationFrame(tick);
   }
 

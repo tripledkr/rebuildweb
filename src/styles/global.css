@@ -1201,3 +1201,23 @@ body{color:var(--ink);letter-spacing:-.02em;line-height:1.6}
 .is-lines-in .ln__i{transform:none}
 @media (prefers-reduced-motion:reduce){ .ln__i{transform:none;transition:none} }
 .wipe__stage{aspect-ratio:2640/1776}
+
+/* ===== 전후 비교: 섹션 고정 후 그 자리에서 전환 ===== */
+.wipe-pin{position:relative;height:260svh}
+.wipe-pin__inner{position:sticky;top:0;height:100svh;
+  display:flex;flex-direction:column;justify-content:center}
+.wipe{margin:0}
+.wipe__stage{max-width:min(100%, calc(60svh * 1.4865));margin:0 auto;width:100%}
+.wipe__caps{margin-top:26px}
+@media (max-width:760px){
+  .wipe-pin{height:auto}
+  .wipe-pin__inner{position:static;height:auto;display:block}
+  .wipe__stage{max-width:100%}
+}
+@media (prefers-reduced-motion:reduce){
+  .wipe-pin{height:auto}
+  .wipe-pin__inner{position:static;height:auto}
+}
+/* sticky 가 동작하도록 clip 으로 (hidden 은 스크롤 컨테이너를 만들어 sticky 를 무력화) */
+.sec--lift{overflow:clip}
+html{overflow-x:clip}
