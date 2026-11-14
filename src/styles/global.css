@@ -734,3 +734,16 @@ body{letter-spacing:-.008em}
 @media (min-width:1081px){ .hero{padding-top:clamp(96px,9vw,132px);padding-bottom:clamp(72px,7vw,104px)} }
 .hero__scroll{bottom:26px}
 @media (min-width:1081px){ .hero{min-height:auto} }
+
+/* ===== 비교표: 박스·배경 제거, 헤어라인 에디토리얼 ===== */
+.table-wrap{overflow-x:auto;border:0 !important;border-radius:0 !important;background:none !important;box-shadow:none !important}
+.compare{font-size:16.5px;border-collapse:collapse}
+.compare thead th{background:none;border-bottom:1px solid #111;
+  font-size:12.5px;font-weight:800;letter-spacing:.05em;color:#8C8C90;
+  padding:0 24px 16px 0}
+.compare thead th:first-child{padding-left:0}
+.compare th,.compare td{padding:26px 24px 26px 0;border-bottom:1px solid #E4E2DC;line-height:1.65}
+.compare tbody th{width:20%;font-weight:700;font-size:15px;color:#8C8C90;letter-spacing:-.01em}
+.compare td{color:#8E8E92}
+.compare td.is-good{color:#111;font-weight:600}
+.compare tr:last-child th,.compare tr:last-child td{border-bottom:1px solid #E4E2DC}
