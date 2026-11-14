@@ -279,3 +279,47 @@
   boxes.forEach(function (b) { b.addEventListener('change', update); });
   update();
 })();
+
+/* ===== THE GAP: 커튼 진행도에 따라 카드와 목록 전환 ===== */
+(function () {
+  var root = document.querySelector('[data-curtain]');
+  var cards = document.querySelector('[data-gap-cards]');
+  var list = document.querySelector('[data-gap-list]');
+  if (!root || !cards || !list) return;
+
+  var b = root.querySelector('.cv__b');
+  var figs = [].slice.call(cards.children);
+  var lis = [].slice.call(list.children);
+  var n = Math.min(figs.length, lis.length);
+  if (!b || n === 0) return;
+
+  var cur = -1, ticking = false;
+
+  function setIndex(i) {
+    if (i === cur) return;
+    cur = i;
+    for (var k = 0; k < n; k++) {
+      figs[k].classList.toggle('is-on', k === i);
+      lis[k].classList.toggle('is-on', k === i);
+    }
+  }
+
+  function measure() {
+    ticking = false;
+    var r = b.getBoundingClientRect();
+    var span = r.height - window.innerHeight;
+    if (span <= 0) return;
+    // 커튼이 다 열린 뒤 구간을 n등분
+    var passed = (-r.top) / span;
+    var start = 0.5;
+    var t = (passed - start) / (1 - start);
+    t = Math.max(0, Math.min(0.9999, t));
+    setIndex(Math.floor(t * n));
+  }
+
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(measure); }
+  }, { passive: true });
+  window.addEventListener('resize', measure);
+  measure();
+})();
