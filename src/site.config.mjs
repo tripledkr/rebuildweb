@@ -5,8 +5,8 @@ export default {
   url: 'https://rebuildweb.vercel.app', // 실제 도메인으로 교체
   keyword: '기업 홈페이지 리뉴얼',
   theme: {
-    accent: '#1F3FD1',
-    accentSoft: '#EEF1FD',
+    accent: '#3182F6', // TDS blue-600 (버튼·링크 기준색)
+    accentSoft: '#E8F1FE',
     bg: '#FFFFFF',
   },
   nav: [

@@ -1411,3 +1411,42 @@ html{overflow-x:clip}
   .signs__result{grid-template-columns:1fr;text-align:center}
   .signs__result .signs__msg{text-align:center}
 }
+
+/* ================================================================
+   TDS(토스 디자인 시스템) 토큰 적용 — 이 블록이 색·면·선·버튼의 최종 기준
+   근거(공개 토큰 실측): 텍스트 #191F28/#4E5968/#8B95A1,
+   면 분리 #FFFFFF/#F2F4F6(플랫, 그림자 대신 면 색 차이), 구분선 #E5E8EB,
+   버튼·링크 블루 #3182F6, hover #2272EB, 다크 #17171C
+   ================================================================ */
+:root{--ink:#191F28;--muted:#4E5968;--tertiary:#8B95A1;--line:#E5E8EB}
+/* 면: 소프트 섹션은 블루틴트 대신 TDS 중립 그레이 */
+.sec--soft{background:#F2F4F6}
+.signs__result,.signs__result.is-alert{background:#fff}
+.rv__card{box-shadow:none;border:1px solid var(--line)}
+/* 선: 모든 라이트 구분선 #E5E8EB */
+.compare th,.compare td{border-bottom-color:var(--line)}
+.faq details{border-bottom-color:var(--line)}
+.statbar li{border-color:var(--line)}
+.signs li,.signs__row,.plist__a,.plist li{border-color:var(--line)}
+.cv__list li{border-color:var(--line)}
+@media (max-width:640px){.statbar li{border-color:var(--line)}}
+/* 버튼: 필 → TDS 라운드 사각(14px), hover는 투명도 대신 색 변화 */
+.btn{border-radius:14px;transition:background .18s ease,transform .18s ease}
+.btn:hover{opacity:1;background:#2272EB}
+/* 보조 버튼: 외곽선 → 면 색 차이(라이트 그레이 필) */
+.btn--line{background:#F2F4F6;border:0;color:#333D4B}
+.btn--line:hover{background:#E5E8EB;color:#191F28}
+.sec--soft .btn--line{background:#fff}
+.sec--soft .btn--line:hover{background:#F9FAFB}
+.hero--dark .btn--line{background:rgba(255,255,255,.14);border:0;color:#fff}
+.hero--dark .btn--line:hover{background:rgba(255,255,255,.22)}
+/* 배지·캡션 위계 */
+.statbar__note,.ba__note,.form__privacy{color:var(--tertiary)}
+.flow__copy .label{color:#7CB2F9}
+/* 플랫: 큰 그림자 제거 */
+.cv__cards{box-shadow:0 8px 28px rgba(25,31,40,.08)}
+/* 다크 섹션 바탕: 남색 이미지 섹션 외 순수 다크는 TDS #17171C 톤 */
+.sec--dark{background:#17171C}
+/* TDS 보강: 남은 검은 실선 전부 중립 구분선으로 */
+.signs,.faq,.statbar__in,.rows{border-top-color:var(--line)}
+@media (max-width:640px){.statbar__in{border-top-color:var(--line)}}
