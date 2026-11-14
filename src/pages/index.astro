@@ -30,6 +30,28 @@ const schema = [
     '@context': 'https://schema.org', '@type': 'FAQPage',
     mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
   },
+
+  {
+    '@context': 'https://schema.org', '@type': 'Organization',
+    name: site.business.company, url: site.url, telephone: site.contact.tel,
+    areaServed: { '@type': 'Country', name: '대한민국' },
+    knowsLanguage: 'ko-KR',
+    contactPoint: [{ '@type': 'ContactPoint', telephone: site.contact.tel,
+      contactType: 'customer service', areaServed: 'KR', availableLanguage: 'Korean' }],
+  },
+  {
+    '@context': 'https://schema.org', '@type': 'HowTo',
+    name: '기업 홈페이지 리뉴얼 진행 과정',
+    description: '상담부터 오픈까지 2주를 기준으로 진행합니다. 기간은 자료 준비 상황과 작업 스케줄에 따라 달라질 수 있습니다.',
+    totalTime: 'P14D',
+    step: [
+      { '@type': 'HowToStep', position: 1, name: '상담 · 자료 정리', text: '기존 홈페이지와 보유 자료를 함께 검토합니다.' },
+      { '@type': 'HowToStep', position: 2, name: '구조 설계', text: '메뉴와 페이지별 내용을 새로 설계합니다.' },
+      { '@type': 'HowToStep', position: 3, name: '디자인', text: '시안으로 방향을 맞추고 수정합니다.' },
+      { '@type': 'HowToStep', position: 4, name: '개발 · 반응형', text: 'PC와 모바일 화면을 실제 사이트로 구현합니다.' },
+      { '@type': 'HowToStep', position: 5, name: '오픈 · 운영 교육', text: '도메인을 연결하고 운영 방법을 1:1로 안내합니다.' }
+    ],
+  },
 ];
 ---
 <Base
