@@ -1450,3 +1450,53 @@ html{overflow-x:clip}
 /* TDS 보강: 남은 검은 실선 전부 중립 구분선으로 */
 .signs,.faq,.statbar__in,.rows{border-top-color:var(--line)}
 @media (max-width:640px){.statbar__in{border-top-color:var(--line)}}
+
+/* ================================================================
+   타이포 위계 시스템 — 토스 실측 기준. 글자 크기·굵기·색은 여기서만 고친다.
+   [실측 toss.im] Display 60/700/1.22 · 섹션 제목 48/700/1.28 · 다크 서브헤드 32/700/1.4
+   소제목 18~20/700 · 리드·본문 16/400/1.6 #727780 · 보조 14/500 · 캡션 13/400 #8F959E
+   굵기는 700이 최대(800 없음) · 자간 -0.02em 일괄 · ink #1C1F25
+   T1 히어로 56 / T2 섹션 제목 48 / T3 소제목 18~20 / T4 리드 17 / T5 본문 16 / T6 보조 14 / T7 캡션 13
+   ================================================================ */
+:root{--ink:#1C1F25;--muted:#727780;--tertiary:#8F959E}
+/* 굵기: 800 전면 폐지 → 700 */
+.h1,.h2,.cv__h,.article__title,.statbar strong,.band p,.hero__kw,.hd__logo,.ft__logo,.card__no,.post__cat,.label,.steps b{font-weight:700}
+/* T1 히어로 */
+.h1,.hero .h1{font-size:clamp(33px,3.9vw,56px);line-height:1.22;letter-spacing:-.02em}
+/* T2 섹션 제목 — 92px 돌출(THE GAP) 제거, 전부 48 상한으로 통일 */
+.h2,.cv__h,.article__title{font-size:clamp(27px,3.3vw,48px);line-height:1.28;letter-spacing:-.02em}
+.cv__h{margin-top:16px}
+/* 다크 포커스 밴드(3초): 토스 다크 서브헤드 32/700/1.4 */
+.band p{font-size:clamp(22px,2.3vw,32px);line-height:1.4;letter-spacing:-.02em}
+/* T3 소제목: 블록 타이틀 20 / 리스트·카드 타이틀 17~18 */
+.bento__h,.plist__t,.cv__list li b{font-size:clamp(17px,1.4vw,20px);line-height:1.45;letter-spacing:-.02em}
+.faq summary{font-size:18px;letter-spacing:-.02em}
+.signs__t{font-size:17px;font-weight:600;line-height:1.5;letter-spacing:-.02em}
+/* T4 리드: 전부 레귤러 그레이 — 볼드 리드 폐지(토스: 섹션 부연은 16/400 그레이) */
+.lead,.head .lead,.head--split .lead{font-size:17px;font-weight:400;line-height:1.6;color:var(--muted);letter-spacing:-.02em}
+.hero .lead{font-size:clamp(16.5px,1.3vw,18px);font-weight:400;color:rgba(255,255,255,.82)}
+.sec--dark .lead,.flow__copy .lead,.bento .lead{color:rgba(255,255,255,.72)}
+.cv__sub{font-size:18px;font-weight:600;color:var(--ink);line-height:1.6;letter-spacing:-.02em}
+/* T5 본문 16/400/1.6 */
+.bento__d,.plist__d,.rv__txt,.split__note{font-size:16px;line-height:1.6;letter-spacing:-.02em}
+.compare th,.compare td{font-size:16px;letter-spacing:-.02em}
+/* T6 보조 14/500 · T7 캡션 13/400 */
+.statbar li>span{font-size:14px;font-weight:500;color:var(--muted)}
+.statbar__note,.ba__note,.form__privacy{font-size:13px;color:var(--tertiary)}
+.rv__src{font-size:13px;font-weight:500;color:var(--tertiary)}
+/* 수치: 빅넘버는 섹션 제목과 같은 56 상한/700 */
+.statbar strong{font-size:clamp(36px,3.9vw,56px);letter-spacing:-.02em}
+.statbar strong small{font-size:18px;font-weight:600}
+/* 자간 예전 변형(-.045/-.04/.004em) 정리 → -0.02em 일괄 */
+.h1,.h2,.cv__h,.article__title,.lead,.cv__sub,.band p,.statbar strong,.hero__points strong{letter-spacing:-.02em}
+/* 버튼: 토스 CTA 600 */
+.btn{font-weight:600}
+/* 라벨 12/700, 자간 .12em으로 통일 */
+.label,.flow__copy .label,.hero__kw,.post__cat{font-size:12px;letter-spacing:.12em}
+.hero__kw{font-size:13px;letter-spacing:.02em}
+/* 위계 보강: 남은 이탈값 수렴 */
+.steps h3{font-weight:700}
+.contact__item strong{font-size:18px}
+.compare th[scope="row"]{font-size:16px;font-weight:700}
+.rv__who b{font-size:14px;font-weight:600}
+.ui-h,.ui-h2,.ui-done__t,.alert__txt b{font-weight:700}
