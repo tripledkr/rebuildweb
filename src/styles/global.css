@@ -1582,3 +1582,95 @@ html{overflow-x:clip}
   .wipe__fade{display:none}
   .ba__note{order:7;margin:12px 0 0 !important;position:static !important}
 }
+
+/* ================================================================
+   다크 테마 — 레퍼런스(lukebaffait·likova) 톤. 색은 여기서만 뒤집는다.
+   base #0B0E15 · panel #10131B · card #131824 · line rgba(255,255,255,.1)
+   ink #EEF2F9 · muted #99A2B2 · tertiary #677082 · accent TDS 블루 유지
+   ================================================================ */
+:root{--ink:#EEF2F9;--muted:#99A2B2;--tertiary:#677082;--line:rgba(255,255,255,.1)}
+html,body{background:#0B0E15;color:var(--ink)}
+/* 헤더 */
+.hd{background:rgba(11,14,21,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.hd__logo,.hd__nav a:not(.btn){color:#E7EBF4}
+.hd.is-stuck{box-shadow:0 1px 0 rgba(255,255,255,.08)}
+/* 섹션 면 */
+.sec--soft{background:#10131B}
+.sec--dark{background:#10131B}
+.statbar{background:#10131B;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06)}
+.flow{background:#0C1018}
+/* 더 갭 */
+.cv__list li b{color:#8A93A6}
+.cv__list li.is-on b{color:#EEF2F9}
+.cv__list li span,.cv__list li.is-on span{color:#8A93A6}
+.cv__list li{border-color:rgba(255,255,255,.1)}
+.cv__sub{color:#EEF2F9}
+.cv__cards{background:#10151F;box-shadow:0 24px 70px rgba(0,0,0,.5)}
+.cv__cards::after{border-color:rgba(110,150,255,.14)}
+/* 체크리스트 */
+.signs{border-top-color:rgba(255,255,255,.14)}
+.signs li,.signs__row{border-color:rgba(255,255,255,.1)}
+.signs__t{color:#E4E8F0}
+.signs__box{border-color:#3A4358;background:transparent}
+.signs li:has(.signs__cb:checked){background:linear-gradient(90deg,rgba(49,130,246,.1),transparent 72%)}
+.signs__result,.signs__result.is-alert{background:#131824;border:1px solid rgba(255,255,255,.07)}
+.signs__msg{color:#C3CAD7}
+.signs__count span{color:#67708E}
+/* 와이프 */
+.wipe__cap{color:#C3CAD7}
+.ba__note{color:#677082}
+.wipe__stage{box-shadow:0 30px 80px rgba(0,0,0,.55)}
+/* 후기 */
+.rv__card{background:#131824;border-color:rgba(255,255,255,.08);box-shadow:none}
+.rv__txt{color:#CBD2DE}
+.rv__who b{color:#fff}
+.rv__who{border-color:rgba(255,255,255,.08)}
+.rv__who span,.rv__meta{color:#76809B}
+/* 칼럼 목록·FAQ */
+.plist__a,.plist li{border-color:rgba(255,255,255,.1)}
+.plist__t{color:#EEF2F9}
+.plist__d{color:var(--muted)}
+.plist__n{color:#4A5366}
+.faq{border-top-color:rgba(255,255,255,.14)}
+.faq details{border-bottom-color:rgba(255,255,255,.1)}
+.faq summary{color:#EEF2F9}
+.faq details p{color:var(--muted)}
+/* 보조 버튼: 다크 면 */
+.btn--line,.sec--soft .btn--line{background:rgba(255,255,255,.08);color:#E6EAF2;border:0}
+.btn--line:hover,.sec--soft .btn--line:hover{background:rgba(255,255,255,.14);color:#fff}
+/* 컨택트 폼 */
+.field input,.field textarea{background:#10141E;border-color:#2A3246;color:#EEF2F9}
+.field input::placeholder,.field textarea::placeholder{color:#5A6478}
+.field span,.form__agree span{color:#C3CAD7}
+.form__privacy{background:#10131B;color:#677082}
+.form__privacy a{color:#9FB6E8}
+.contact__item{background:rgba(255,255,255,.06);border:0}
+.contact__item:hover{background:rgba(255,255,255,.1)}
+.contact__item span{color:#76809B}
+.contact__item strong{color:#fff}
+.contact__item em{color:#76809B}
+.contact__item--kakao{background:rgba(49,130,246,.16)}
+.contact__item--kakao:hover{background:rgba(49,130,246,.24)}
+.contact__item--kakao span{color:#6FA9F9}
+.contact__item--kakao strong{color:#fff}
+.contact__item--kakao em{color:#9AB4D9}
+/* 푸터 */
+.ft{background:#07090F;color:#8A93A6}
+.ft a{color:#B9C1D0}
+/* 칼럼 상세·목록 페이지 */
+.pagehead{border-bottom-color:rgba(255,255,255,.1)}
+.post{background:#11151F;border-color:rgba(255,255,255,.08)}
+.post__title{color:#EEF2F9}
+.post__desc{color:var(--muted)}
+.crumb,.crumb a{color:#76809B}
+.prose{color:#C9D0DC}
+.prose h2,.prose h3,.prose strong{color:#EEF2F9}
+.prose strong{background:linear-gradient(transparent 62%,rgba(49,130,246,.25) 62%)}
+.prose blockquote{background:rgba(49,130,246,.1);border-left-color:var(--accent);color:#C9D0DC}
+.prose a{color:#7CB2F9}
+.article__title{color:#EEF2F9}
+/* 히어로 포인트 보더 */
+.hero__points{border-top-color:rgba(255,255,255,.14)}
+/* 다크 보강: 컨택트 폼 패널 */
+.form,.contact__wrap > form{background:#10131B;border:1px solid rgba(255,255,255,.07)}
+.form{box-shadow:none}

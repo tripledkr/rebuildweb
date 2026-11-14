@@ -7,7 +7,7 @@ export default {
   theme: {
     accent: '#3182F6', // TDS blue-600 (버튼·링크 기준색)
     accentSoft: '#E8F1FE',
-    bg: '#FFFFFF',
+    bg: '#0B0E15',
   },
   nav: [
     { label: '리뉴얼 체크', href: '/#signs' },
