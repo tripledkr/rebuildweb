@@ -23,7 +23,7 @@ export default {
   },
   business: {
     company: '스튜디오 트리플디',
-    ceo: '김주희',
+    privacyOfficer: '고객지원 담당', // 개인정보 보호법 제30조①6호: 성명 대신 담당 부서 명칭 + 연락처 가능
   },
   verify: {
     naver: '', // 네이버 서치어드바이저 사이트 소유확인 코드
