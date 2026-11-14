@@ -11,6 +11,19 @@ import { items, PLACEHOLDER } from '../data/portfolio.mjs';
         <p class="lead">업종마다 보여줄 것이 다릅니다. 회사가 가진 것부터 정리한 뒤 화면을 설계했습니다.</p>
       </div>
 
+      <div class="gal" data-gal>
+        <div class="gal__scene" data-gal-scene>
+          {items.map((it, i) => (
+            <figure class={`gal__c gal__c--${i + 1}`} data-gal-card>
+              <img src={it.cover} width="1200" height="800" alt="" loading="lazy" decoding="async" />
+            </figure>
+          ))}
+        </div>
+        <p class="gal__say" data-gal-say>
+          <em>업종</em>이 다르면 보여줄 것도 다릅니다.<br>그래서 화면부터 다시 설계합니다.
+        </p>
+      </div>
+
       <ol class="work__list" data-work>
         {items.map((it) => (
           <li class="work__row" data-work-row data-cover={it.cover}>
@@ -71,6 +84,53 @@ import { items, PLACEHOLDER } from '../data/portfolio.mjs';
         scrollTrigger: { trigger: list, start: 'top 92%', once: true },
       }
     );
+  }
+
+  /* 갤러리 — 스크롤에 따라 카드가 깊이별로 흩어지고, 마우스로 장면이 기운다 */
+  const gal = document.querySelector('[data-gal]');
+  const scene = document.querySelector('[data-gal-scene]');
+  const say = document.querySelector('[data-gal-say]');
+  if (gal && scene && !reduce) {
+    const cards = gsap.utils.toArray('[data-gal-card]');
+
+    cards.forEach((c, i) => {
+      const depth = parseFloat(getComputedStyle(c).getPropertyValue('--z')) || 0;
+      const k = 1 + Math.abs(depth) / 420;        // 멀수록 더 많이 움직인다
+      const dir = i % 2 === 0 ? -1 : 1;
+      gsap.fromTo(
+        c,
+        { yPercent: 16 * k, xPercent: 5 * k * dir, autoAlpha: 0 },
+        {
+          yPercent: -16 * k,
+          xPercent: -5 * k * dir,
+          autoAlpha: 1,
+          ease: 'none',
+          scrollTrigger: { trigger: gal, start: 'top bottom', end: 'bottom top', scrub: 1.1 },
+        }
+      );
+    });
+
+    if (say) {
+      gsap.fromTo(
+        say,
+        { autoAlpha: 0, y: 26 },
+        {
+          autoAlpha: 1, y: 0, duration: 1, ease: 'power3.out',
+          scrollTrigger: { trigger: gal, start: 'top 68%', once: true },
+        }
+      );
+    }
+
+    if (window.matchMedia('(hover: hover)').matches) {
+      const rx = gsap.quickTo(scene, 'rotationX', { duration: 1.1, ease: 'power3' });
+      const ry = gsap.quickTo(scene, 'rotationY', { duration: 1.1, ease: 'power3' });
+      gal.addEventListener('pointermove', (e) => {
+        const r = gal.getBoundingClientRect();
+        ry(((e.clientX - r.left) / r.width - 0.5) * 11);
+        rx(-((e.clientY - r.top) / r.height - 0.5) * 7);
+      });
+      gal.addEventListener('pointerleave', () => { rx(0); ry(0); });
+    }
   }
 
   /* 호버 미리보기 — 커서를 부드럽게 따라옴 */

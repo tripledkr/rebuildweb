@@ -1740,3 +1740,47 @@ html,body{background:#0B0E15;color:var(--ink)}
 @media (prefers-reduced-motion:reduce){
   .work__row{transition:none} .work__peek{display:none}
 }
+
+/* ================================================================
+   작업 갤러리 — 3D로 흩뿌려진 카드 + 중앙 문장
+   ================================================================ */
+.gal{position:relative;margin:clamp(36px,4vw,56px) 0 clamp(8px,1vw,16px);
+  min-height:clamp(560px,84svh,760px);display:grid;place-items:center;
+  perspective:1100px;perspective-origin:50% 50%}
+/* 중앙 문장이 어떤 카드 위에서도 읽히도록 — 가운데만 눌러주는 스크림 */
+.gal::after{content:'';position:absolute;left:50%;top:50%;width:min(760px,86%);height:min(430px,62%);
+  transform:translate(-50%,-50%);z-index:1;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(8,11,18,.92),rgba(8,11,18,.6) 55%,rgba(8,11,18,0) 100%)}
+.gal__scene{position:absolute;inset:0;transform-style:preserve-3d;pointer-events:none}
+.gal__c{position:absolute;margin:0;border-radius:10px;overflow:hidden;
+  transform:translateZ(var(--z)) rotateY(var(--ry,0deg)) rotateX(var(--rx,0deg));
+  box-shadow:0 24px 60px rgba(0,0,0,.55);border:1px solid rgba(255,255,255,.08);
+  width:var(--w)}
+.gal__c img{width:100%;height:auto;display:block}
+/* 흩뿌림 — 좌우로 벌어지고 깊이가 제각각 */
+.gal__c--1{--z:-140px;--ry:22deg; --w:16%;left:0%;  top:33%}
+.gal__c--2{--z:-60px;  --ry:13deg; --w:19%;left:10%; top:2%}
+.gal__c--3{--z:-380px; --ry:8deg;  --w:16%;left:20%; top:74%}
+.gal__c--4{--z:-260px; --ry:-9deg; --w:18%;left:62%; top:71%}
+.gal__c--5{--z:-340px; --ry:-7deg; --w:16%;left:70%; top:4%}
+.gal__c--6{--z:-110px; --ry:-20deg;--w:17%;left:84%; top:36%}
+/* 중앙 문장 — 카드보다 앞 */
+.gal__say{position:relative;z-index:2;max-width:18ch;text-align:center;
+  word-break:keep-all;text-wrap:balance;
+  font-size:clamp(24px,3vw,42px);font-weight:700;line-height:1.34;letter-spacing:-.02em;
+  color:#fff;text-shadow:0 6px 40px rgba(5,8,14,.95),0 2px 10px rgba(5,8,14,.9)}
+.gal__say em{font-style:normal;color:#7CB2F9}
+
+@media (max-width:900px){
+  /* 가운데 띠는 문장만 — 카드는 위아래로 몬다 */
+  .gal{min-height:clamp(500px,66svh,580px);perspective:800px}
+  .gal::after{width:96%;height:46%}
+  .gal__c--1{--w:33%;left:-6%;top:1%}  .gal__c--2{--w:28%;left:34%;top:9%}
+  .gal__c--3{--w:33%;left:70%;top:0%}  .gal__c--4{--w:31%;left:-4%;top:74%}
+  .gal__c--5{--w:28%;left:35%;top:82%} .gal__c--6{--w:33%;left:71%;top:72%}
+  .gal__say{max-width:15ch;font-size:clamp(21px,5.6vw,27px)}
+}
+@media (prefers-reduced-motion:reduce){
+  .gal__scene{opacity:.4}
+  .gal__say{opacity:1 !important}
+}
