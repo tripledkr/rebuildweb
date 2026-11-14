@@ -1147,3 +1147,56 @@ body{color:var(--ink);letter-spacing:-.02em;line-height:1.6}
 .flow,.flow .h2,.flow h2{color:#fff}
 .sec--dark .steps p,.flow p{color:rgba(255,255,255,.7)}
 .sec--dark .label,.bento .label,.flow .label{color:var(--accent)}
+
+/* ===== 전후 비교: 스크롤 와이프 ===== */
+.wipe{margin:0 0 20px}
+.wipe__stage{position:relative;width:100%;aspect-ratio:1380/934;overflow:hidden;
+  border-radius:12px;background:#EFEFEC}
+.wipe__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.wipe__clip{position:absolute;inset:0;clip-path:inset(0 0 0 0);will-change:clip-path}
+.wipe__img--before{filter:saturate(.3) contrast(.98)}
+.wipe__bar{position:absolute;top:0;bottom:0;left:0;width:2px;background:rgba(255,255,255,.9);
+  box-shadow:0 0 0 1px rgba(10,16,32,.14),0 0 22px rgba(10,16,32,.22);
+  transform:translateX(-1px);will-change:transform;pointer-events:none}
+.wipe__knob{position:absolute;top:50%;left:50%;width:42px;height:42px;border-radius:50%;
+  transform:translate(-50%,-50%);background:#fff;
+  box-shadow:0 6px 20px rgba(10,16,32,.26)}
+.wipe__knob::before,.wipe__knob::after{content:'';position:absolute;top:50%;width:0;height:0;
+  border:5px solid transparent}
+.wipe__knob::before{left:7px;border-right-color:#1C1F25;transform:translateY(-50%)}
+.wipe__knob::after{right:7px;border-left-color:#1C1F25;transform:translateY(-50%)}
+.wipe__tag{position:absolute;top:18px;margin:0;padding:7px 14px;border-radius:999px;
+  font-size:12px;font-weight:800;letter-spacing:.14em;transition:opacity .3s}
+.wipe__tag--b{left:18px;background:rgba(28,31,37,.78);color:#fff}
+.wipe__tag--a{right:18px;background:var(--accent);color:#fff;opacity:0}
+.wipe__caps{position:relative;margin-top:22px;min-height:3.6em}
+.wipe__cap{position:absolute;inset:0;margin:0;text-align:center;
+  font-size:16px;line-height:1.6;letter-spacing:-.02em;color:var(--muted);
+  transition:opacity .35s ease}
+.wipe__cap--a{opacity:0}
+@media (max-width:760px){
+  .wipe__bar,.wipe__knob{display:none}
+  .wipe__stage{aspect-ratio:auto;height:auto;background:none;border-radius:0;
+    display:flex;flex-direction:column;align-items:flex-start;gap:12px}
+  .wipe__img{position:static;height:auto;border-radius:10px}
+  .wipe__clip{position:static;clip-path:none !important;width:100%}
+  .wipe__tag{position:static;display:inline-block;margin:0;opacity:1 !important}
+  .wipe__tag--b{order:1}
+  .wipe__clip{order:2}
+  .wipe__tag--a{order:3;margin-top:10px}
+  .wipe__img--after{order:4}
+  .wipe__caps{position:static;min-height:0;display:grid;gap:12px;margin-top:18px}
+  .wipe__cap{position:static;opacity:1 !important;text-align:left}
+}
+@media (prefers-reduced-motion:reduce){
+  .wipe__clip{clip-path:inset(0 50% 0 0) !important}
+  .wipe__bar{left:50%}
+  .wipe__cap--a,.wipe__tag--a{opacity:1}
+}
+
+/* ===== 줄 단위 마스크 등장 ===== */
+.ln{display:block;overflow:hidden;padding-bottom:.06em}
+.ln__i{display:block;transform:translateY(108%);
+  transition:transform 1s cubic-bezier(.22,.8,.3,1)}
+.is-lines-in .ln__i{transform:none}
+@media (prefers-reduced-motion:reduce){ .ln__i{transform:none;transition:none} }

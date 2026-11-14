@@ -323,3 +323,82 @@
   window.addEventListener('resize', measure);
   measure();
 })();
+
+/* ===== 전후 비교 스크롤 와이프 ===== */
+(function () {
+  var root = document.querySelector('[data-wipe]');
+  if (!root) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.matchMedia('(max-width: 760px)').matches) return;
+
+  var stage = root.querySelector('.wipe__stage');
+  var clip = root.querySelector('[data-wipe-clip]');
+  var bar = root.querySelector('[data-wipe-bar]');
+  var tagB = root.querySelector('[data-wipe-tag-b]');
+  var tagA = root.querySelector('[data-wipe-tag-a]');
+  var capB = root.querySelector('[data-wipe-cap-b]');
+  var capA = root.querySelector('[data-wipe-cap-a]');
+  if (!stage || !clip || !bar) return;
+
+  var cur = 0, target = 0, raf = null;
+
+  function ease(x) { return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; }
+
+  function apply(v) {
+    clip.style.clipPath = 'inset(0 ' + (v * 100).toFixed(2) + '% 0 0)';
+    bar.style.transform = 'translateX(' + ((1 - v) * stage.offsetWidth - 1).toFixed(1) + 'px)';
+    if (tagB) tagB.style.opacity = String(Math.max(0, 1 - v * 1.6));
+    if (tagA) tagA.style.opacity = String(Math.max(0, (v - 0.35) / 0.4));
+    if (capB) capB.style.opacity = String(Math.max(0, 1 - v * 1.8));
+    if (capA) capA.style.opacity = String(Math.max(0, (v - 0.45) / 0.35));
+  }
+
+  function tick() {
+    cur += (target - cur) * 0.14;
+    if (Math.abs(target - cur) < 0.0008) { cur = target; apply(cur); raf = null; return; }
+    apply(cur);
+    raf = requestAnimationFrame(tick);
+  }
+
+  function measure() {
+    var r = stage.getBoundingClientRect();
+    // 섹션이 화면 아래 3/4 지점에 닿을 때 시작해 화면 위 1/4 지점에서 끝남
+    var start = window.innerHeight * 0.82;
+    var end = window.innerHeight * 0.22;
+    var t = (start - r.top) / (start - end);
+    target = ease(Math.max(0, Math.min(1, t)));
+    if (raf === null) raf = requestAnimationFrame(tick);
+  }
+
+  window.addEventListener('scroll', measure, { passive: true });
+  window.addEventListener('resize', function () { measure(); apply(cur); });
+  measure();
+  apply(0);
+})();
+
+/* ===== 다크 섹션 제목: 줄 단위 마스크 등장 ===== */
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var heads = document.querySelectorAll('.sec--dark .h2, .bento .h2, .flow .h2');
+  if (!heads.length) return;
+
+  [].forEach.call(heads, function (h) {
+    var lines = h.innerHTML.split(/<br\s*\/?>/i);
+    h.innerHTML = lines.map(function (l) {
+      return '<span class="ln"><span class="ln__i">' + l + '</span></span>';
+    }).join('');
+    if (reduce) { h.classList.add('is-lines-in'); return; }
+    var inner = h.querySelectorAll('.ln__i');
+    for (var i = 0; i < inner.length; i++) {
+      inner[i].style.transitionDelay = (i * 0.11) + 's';
+    }
+  });
+
+  if (reduce) return;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (en.isIntersecting) { en.target.classList.add('is-lines-in'); io.unobserve(en.target); }
+    });
+  }, { threshold: 0.4 });
+  [].forEach.call(heads, function (h) { io.observe(h); });
+})();
